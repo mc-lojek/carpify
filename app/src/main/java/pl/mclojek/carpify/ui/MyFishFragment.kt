@@ -6,9 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import pl.mclojek.carpify.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import pl.mclojek.carpify.adapters.FishRecyclerAdapter
+import pl.mclojek.carpify.data.Fish
+import pl.mclojek.carpify.databinding.FragmentMyFishBinding
 
 class MyFishFragment : Fragment() {
+
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var binding: FragmentMyFishBinding
+    private lateinit var adapter: FishRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("foobar", "my fish fragment sie odpalil")
@@ -20,6 +27,41 @@ class MyFishFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_fish, container, false)
+        binding = FragmentMyFishBinding.inflate(inflater, container, false)
+
+        linearLayoutManager = LinearLayoutManager(this.activity)
+        binding.recyclerView.layoutManager = linearLayoutManager
+
+        val fishList = ArrayList<Fish>()
+        fishList.add(Fish(123, "KARPIK", 120, 123456, "Kuleczka", "Foobar", "54.202809, 17.359770", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+        fishList.add(Fish(123, "KARPIK drugi", 120, 123456, "Kuleczka", "Foobar", "54.152273, 17.357024", 123, 321, "whatever"))
+
+        adapter = FishRecyclerAdapter(fishList, requireContext());
+        binding.recyclerView.adapter = adapter
+
+        return binding.root
     }
 }
