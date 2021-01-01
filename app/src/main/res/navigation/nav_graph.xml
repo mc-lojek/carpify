@@ -35,4 +35,18 @@
         android:name="pl.mclojek.carpify.ui.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings" />
+
+
+
+
+    <fragment
+        android:id="@+id/fish_details_fragment"
+        android:name="pl.mclojek.carpify.ui.FishDetailsFragment"
+        android:label="FishDetailsFragment"
+        tools:layout="@layout/fragment_fish_details" />
+    <fragment
+        android:id="@+id/fish_map_fragment"
+        android:name="pl.mclojek.carpify.ui.FishMapFragment"
+        android:label="FishMapFragment"
+        tools:layout="@layout/fragment_fish_map" />
 </navigation>

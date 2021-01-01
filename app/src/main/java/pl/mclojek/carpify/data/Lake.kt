@@ -1,7 +1,12 @@
 package pl.mclojek.carpify.data
 
-class Lake(
-    val id: String,
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class Lake(
+    val id: Int,
     val name: String,
+    val voivodeship: String,
     val bounds: String
-)
+): Parcelable

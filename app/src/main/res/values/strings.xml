@@ -7,5 +7,11 @@
     <string name="list">Lista</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="datetime">Data złowienia</string>
+    <string name="bait">Przynęta</string>
+    <string name="desc">Szczegóły</string>
+    <string name="size">Długość</string>
+    <string name="weight">Waga</string>
+    <string name="species">Gatunek</string>
 
 </resources>
