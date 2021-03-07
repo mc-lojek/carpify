@@ -11,4 +11,11 @@ class App: Application() {
             Timber.plant(Timber.DebugTree())
         }
     }
+
+    companion object {
+        val kodein = Kodein {
+            import(networkModule)
+            import(repositoryModule)
+        }
+    }
 }

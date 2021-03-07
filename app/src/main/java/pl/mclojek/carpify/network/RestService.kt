@@ -7,6 +7,6 @@ import retrofit2.http.GET
 
 interface RestService {
 
-    @GET("lakes")
-    fun listLakes(): Call<List<Lake>>
+    @GET("/lakes/")
+    suspend fun listLakes(): ArrayList<Lake>
 }

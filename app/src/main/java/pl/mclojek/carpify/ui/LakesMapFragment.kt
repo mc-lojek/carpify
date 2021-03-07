@@ -6,19 +6,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.gson.Gson
 import pl.mclojek.carpify.R
 import pl.mclojek.carpify.databinding.FragmentLakesMapBinding
+import pl.mclojek.carpify.viewmodels.LakesListViewModel
+import timber.log.Timber
 
 class LakesMapFragment : Fragment(), OnMapReadyCallback {
 
     private var mMap: MapView? = null
     private lateinit var binding: FragmentLakesMapBinding
-
+    private val viewModel: LakesListViewModel by lazy {
+        ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())
+            .get(LakesListViewModel::class.java)
+    }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
@@ -35,6 +42,9 @@ class LakesMapFragment : Fragment(), OnMapReadyCallback {
         mMap = binding.mapView
         mMap?.onCreate(savedInstanceState)
         mMap?.getMapAsync(this)
+
+        val foo = viewModel.getLakeList().value
+        Timber.d(foo?.get(0)?.name)
 
         return binding.root
     }

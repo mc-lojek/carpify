@@ -14,4 +14,10 @@
     <string name="weight">Waga</string>
     <string name="species">Gatunek</string>
 
+    <string name="login">Zaloguj</string>
+    <string name="register">Zarejestruj</string>
+    <string name="username">Nazwa użytkownika</string>
+    <string name="password">Hasło</string>
+
+
 </resources>
