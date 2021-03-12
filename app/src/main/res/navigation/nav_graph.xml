@@ -7,32 +7,32 @@
 
     <fragment
         android:id="@+id/page_1"
-        android:name="pl.mclojek.carpify.ui.MyFishFragment"
+        android:name="pl.mclojek.carpify.presentation.fragment.MyFishFragment"
         android:label="MyFishFragment"
         tools:layout="@layout/fragment_my_fish"/>
     <fragment
         android:id="@+id/fishMapFragment"
-        android:name="pl.mclojek.carpify.ui.FishMapFragment"
+        android:name="pl.mclojek.carpify.presentation.fragment.FishMapFragment"
         android:label="FishMapFragment"
         tools:layout="@layout/fragment_fish_map"/>
     <fragment
         android:id="@+id/page_2"
-        android:name="pl.mclojek.carpify.ui.LakesListFragment"
+        android:name="pl.mclojek.carpify.presentation.fragment.LakesListFragment"
         android:label="LakesListFragment"
         tools:layout="@layout/fragment_lakes_list" />
     <fragment
         android:id="@+id/page_3"
-        android:name="pl.mclojek.carpify.ui.LakesMapFragment"
+        android:name="pl.mclojek.carpify.presentation.fragment.LakesMapFragment"
         android:label="LakesMapFragment"
         tools:layout="@layout/fragment_lakes_map" />
     <fragment
         android:id="@+id/page_4"
-        android:name="pl.mclojek.carpify.ui.ProfileFragment"
+        android:name="pl.mclojek.carpify.presentation.fragment.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/page_5"
-        android:name="pl.mclojek.carpify.ui.SettingsFragment"
+        android:name="pl.mclojek.carpify.presentation.fragment.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings" />
 
@@ -41,12 +41,12 @@
 
     <fragment
         android:id="@+id/fish_details_fragment"
-        android:name="pl.mclojek.carpify.ui.FishDetailsFragment"
+        android:name="pl.mclojek.carpify.presentation.fragment.FishDetailsFragment"
         android:label="FishDetailsFragment"
         tools:layout="@layout/fragment_fish_details" />
     <fragment
         android:id="@+id/fish_map_fragment"
-        android:name="pl.mclojek.carpify.ui.FishMapFragment"
+        android:name="pl.mclojek.carpify.presentation.fragment.FishMapFragment"
         android:label="FishMapFragment"
         tools:layout="@layout/fragment_fish_map" />
 </navigation>

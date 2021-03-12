@@ -1,15 +1,11 @@
 package pl.mclojek.carpify.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import pl.mclojek.carpify.R
-import pl.mclojek.carpify.data.Fish
-import pl.mclojek.carpify.data.Lake
-import timber.log.Timber
+import pl.mclojek.carpify.domain.model.Lake
 
 class LakeRecyclerAdapter(
     private var lakeList: ArrayList<Lake>,

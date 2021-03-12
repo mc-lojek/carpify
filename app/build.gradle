@@ -25,6 +25,8 @@ android {
 
         // Inject the Maps API key into the manifest
         manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "") ]
+
+        apply plugin: 'kotlin-kapt'
     }
 
     buildTypes {
@@ -45,6 +47,8 @@ android {
         viewBinding true
         dataBinding true
     }
+
+
 }
 
 dependencies {
@@ -72,8 +76,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
-    //dependency injection
-    implementation 'org.kodein.di:kodein-di:7.2.0'
     //local db
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"

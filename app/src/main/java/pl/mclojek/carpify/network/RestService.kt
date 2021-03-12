@@ -1,8 +1,6 @@
 package pl.mclojek.carpify.network
 
-import pl.mclojek.carpify.data.Lake
-import retrofit2.Call
-import retrofit2.Retrofit
+import pl.mclojek.carpify.domain.model.Lake
 import retrofit2.http.GET
 
 interface RestService {

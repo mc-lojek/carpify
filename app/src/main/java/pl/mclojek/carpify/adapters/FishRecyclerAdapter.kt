@@ -1,18 +1,16 @@
 package pl.mclojek.carpify.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import pl.mclojek.carpify.R
-import pl.mclojek.carpify.data.Fish
-import timber.log.Timber
+import pl.mclojek.carpify.domain.model.Fish
 
 class FishRecyclerAdapter(
-        private var fishList: ArrayList<Fish>,
-        private val onItemClicked: (Fish) -> Unit
+    private var fishList: ArrayList<Fish>,
+    private val onItemClicked: (Fish) -> Unit
 ) : RecyclerView.Adapter<FishRecyclerAdapter.ViewHolder>() {
 
     fun changeList(list: ArrayList<Fish>) {
