@@ -14,17 +14,23 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 import pl.mclojek.carpify.R
 import pl.mclojek.carpify.databinding.FragmentFishMapBinding
+import pl.mclojek.carpify.presentation.viewmodel.FishMapViewModel
 
-class FishMapFragment : Fragment(), OnMapReadyCallback {
+class FishMapFragment : Fragment(), OnMapReadyCallback, KodeinAware {
 
+    override val kodein: Kodein by closestKodein()
     private var mMap: MapView? = null
     private lateinit var binding: FragmentFishMapBinding
+    private val viewModel: FishMapViewModel by instance()
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
         mMap?.onSaveInstanceState(outState)
     }
 
@@ -74,7 +80,9 @@ class FishMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         googleMap.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).title("Marker"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds(LatLng(54.122734, 17.420446), LatLng(54.132872, 17.434327)), 8))
+        if(viewModel.lake != null) {
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(viewModel.lake!!.getLatLngBounds(), 8))
+        }
         googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
     }
 }

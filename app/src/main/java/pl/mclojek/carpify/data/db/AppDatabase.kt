@@ -28,25 +28,26 @@ abstract class AppDatabase : RoomDatabase() {
                     Room.databaseBuilder(CONTEXT!!, AppDatabase::class.java, "app_db")
                         .build()
                 prePopulate()
+                prePopulateFish()
             }
             return INSTANCE!!
         }
 
         private fun prePopulate() {
-//            INSTANCE?.lakeDao()?.insertLake(
-//                Lake(
-//                    1,
-//                    "Jezioro Miłoszewskie",
-//                    "Pomorskie",
-//                    "52.014596,17.994455"
-//                ),
-//            )
+            INSTANCE?.lakeDao()?.insertLake(
+                Lake(
+                    1,
+                    "Jezioro Miłoszewskie",
+                    "Pomorskie",
+                    "54.122734, 17.420446, 54.132872, 17.434327"
+                ),
+            )
             INSTANCE?.lakeDao()?.insertLake(
                 Lake(
                     2,
                     "Bobolice",
                     "Pomorskie",
-                    "51.014596,19.994455"
+                    "53.975909, 16.543280, 53.979544, 16.547207"
                 )
             )
             INSTANCE?.lakeDao()?.insertLake(
@@ -54,7 +55,7 @@ abstract class AppDatabase : RoomDatabase() {
                     3,
                     "Krążno",
                     "Pomorskie",
-                    "52.014596,17.994455"
+                    "54.096755, 17.606413, 54.101348, 17.613300"
                 )
             )
             INSTANCE?.lakeDao()?.insertLake(
@@ -62,10 +63,73 @@ abstract class AppDatabase : RoomDatabase() {
                     4,
                     "Tuszynek",
                     "Pomorskie",
-                    "52.014596,17.994455"
+                    "53.739333, 18.492747, 53.744978, 18.500091"
                 )
             )
 
+        }
+
+        private fun prePopulateFish() {
+            INSTANCE?.fishDao()?.insertFish(
+                Fish(
+                    1,
+                    "Karp pełnołuski",
+                    12.86f,
+                    97,
+                    1616107968,
+                    "Kulka proteinowa",
+                    "karpik złowiony na 12 metrach głębokości na chod riga",
+                    "53.739920, 18.494587",
+                    4,
+                    1,
+                    "costam"
+                ),
+            )
+            INSTANCE?.fishDao()?.insertFish(
+                Fish(
+                    1,
+                    "Karp pełnołuski",
+                    12.86f,
+                    97,
+                    1616107968,
+                    "Kulka proteinowa",
+                    "karpik złowiony na 12 metrach głębokości na chod riga",
+                    "53.744402, 18.495760",
+                    4,
+                    1,
+                    "costam"
+                ),
+            )
+            INSTANCE?.fishDao()?.insertFish(
+                Fish(
+                    1,
+                    "Karp pełnołuski",
+                    12.86f,
+                    97,
+                    1616107968,
+                    "Kulka proteinowa",
+                    "karpik złowiony na 12 metrach głębokości na chod riga",
+                    "53.742567, 18.499369",
+                    4,
+                    1,
+                    "costam"
+                ),
+            )
+            INSTANCE?.fishDao()?.insertFish(
+                Fish(
+                    1,
+                    "Karp pełnołuski",
+                    12.86f,
+                    97,
+                    1616107968,
+                    "Kulka proteinowa",
+                    "karpik złowiony na 12 metrach głębokości na chod riga",
+                    "53.742609, 18.494443",
+                    4,
+                    1,
+                    "costam"
+                ),
+            )
         }
     }
 }

@@ -1,5 +1,6 @@
 package pl.mclojek.carpify.presentation.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +20,9 @@ import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 import pl.mclojek.carpify.R
 import pl.mclojek.carpify.databinding.FragmentLakesMapBinding
+import pl.mclojek.carpify.domain.model.Lake
+import pl.mclojek.carpify.presentation.activity.SingleLakeActivity
+import pl.mclojek.carpify.presentation.viewmodel.FishMapViewModel
 import pl.mclojek.carpify.presentation.viewmodel.LakesViewModel
 import timber.log.Timber
 
@@ -82,15 +86,16 @@ class LakesMapFragment : Fragment(), KodeinAware, OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        googleMap.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).title("Marker"))
-
         viewModel.lakeListObservable.observeForever {
             if(it.size > 0) {
                 it.forEach {
-                    googleMap.addMarker(MarkerOptions().position(it.getCenterLatLng()).title(it.name))
-                    googleMap.setOnMarkerClickListener {
-                    }
+                    googleMap.addMarker(MarkerOptions().position(it.getCenterLatLng()).title(it.name)).tag = it
                 }
+            }
+            googleMap.setOnInfoWindowClickListener {
+                val intent = Intent(this.context, SingleLakeActivity::class.java)
+                intent.putExtra("lake", it.tag as Lake)
+                startActivity(intent)
             }
         }
         viewModel.load()

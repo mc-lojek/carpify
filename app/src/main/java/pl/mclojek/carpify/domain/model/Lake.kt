@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import kotlinx.parcelize.Parcelize
 
 @Entity
@@ -15,7 +16,13 @@ data class Lake(
     val voivodeship: String,
     val bounds: String
 ): Parcelable {
+
     fun getCenterLatLng(): LatLng {
-        return LatLng(bounds.substring(0, 9).toDouble(), bounds.substring(10, 19).toDouble())
+        return getLatLngBounds().center
+    }
+
+    fun getLatLngBounds(): LatLngBounds {
+        val splitted = bounds.split(",").map { it.toDouble() }
+        return LatLngBounds(LatLng(splitted[0], splitted[1]), LatLng(splitted[2], splitted[3]))
     }
 }

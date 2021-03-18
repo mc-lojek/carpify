@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Carpify">
-        <activity android:name=".presentation.activity.RegisterActivity"></activity>
+        <activity android:name=".presentation.activity.SingleLakeActivity"></activity>
+        <activity android:name=".presentation.activity.RegisterActivity" />
         <activity android:name=".presentation.activity.LoginActivity" />
         <activity android:name=".presentation.activity.SplashActivity">
             <intent-filter>

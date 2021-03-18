@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import pl.mclojek.carpify.R
-import pl.mclojek.carpify.adapters.FishRecyclerAdapter
+import pl.mclojek.carpify.presentation.adapter.FishRecyclerAdapter
 import pl.mclojek.carpify.domain.model.Fish
 import pl.mclojek.carpify.databinding.FragmentMyFishBinding
 import timber.log.Timber

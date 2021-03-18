@@ -1,4 +1,4 @@
-package pl.mclojek.carpify.adapters
+package pl.mclojek.carpify.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +19,7 @@ class FishRecyclerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val viewHolder = LayoutInflater.from(parent.context).inflate(R.layout.fish_recycler_item, parent, false)
+        val viewHolder = LayoutInflater.from(parent.context).inflate(R.layout.view_fish_list_item, parent, false)
         return ViewHolder(viewHolder) {
             onItemClicked(fishList[it])
         }

@@ -1,9 +1,6 @@
 package pl.mclojek.carpify.data.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import pl.mclojek.carpify.domain.model.Fish
 
 @Dao
@@ -11,7 +8,7 @@ interface FishDao {
     @Query("SELECT * FROM fish")
     suspend fun getAllFish(): List<Fish>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFish(fish: Fish)
 
     @Delete
