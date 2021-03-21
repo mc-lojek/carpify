@@ -3,7 +3,11 @@ package pl.mclojek.carpify.domain.model
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.android.gms.maps.model.LatLng
 import kotlinx.parcelize.Parcelize
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.logging.SimpleFormatter
 
 @Entity
 @Parcelize
@@ -20,4 +24,17 @@ data class Fish(
     val lakeId: Int,
     val hunterId: Int,
     val img: String
-) : Parcelable
+) : Parcelable {
+
+    fun getLatLng(): LatLng {
+        val splitted = coords.split(",").map { it.toDouble() }
+        return LatLng(splitted[0], splitted[1])
+    }
+
+    fun getDateString(): String {
+        val sdf = SimpleDateFormat("dd.MM.yyyy hh:mm")
+        val date = Date(datetime)
+        return sdf.format(date)
+    }
+
+}

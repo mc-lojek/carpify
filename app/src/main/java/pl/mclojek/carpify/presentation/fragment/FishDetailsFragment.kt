@@ -33,9 +33,7 @@ class FishDetailsFragment : Fragment() {
             Timber.d("znalazlem ${fish.species}")
             with(binding)
             {
-                textViewSpecies.text = fish.species
-                textViewWeight.text = fish.weight.toString()
-                textViewSize.text = fish.size.toString()
+                binding.fish = fish
                 textViewDatetime.text = fish.datetime.toString()
                 textViewBait.text = fish.bait
                 textViewDesc.text = fish.desc
@@ -47,8 +45,6 @@ class FishDetailsFragment : Fragment() {
         {
             Timber.d("Nie znalazlem")
         }
-
-        binding.textViewDesc.text = "WHATEVER"
 
         return binding.root
     }

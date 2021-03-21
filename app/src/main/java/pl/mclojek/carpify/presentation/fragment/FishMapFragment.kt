@@ -1,11 +1,14 @@
 package pl.mclojek.carpify.presentation.fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -20,7 +23,10 @@ import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 import pl.mclojek.carpify.R
 import pl.mclojek.carpify.databinding.FragmentFishMapBinding
+import pl.mclojek.carpify.domain.model.Lake
+import pl.mclojek.carpify.presentation.activity.SingleLakeActivity
 import pl.mclojek.carpify.presentation.viewmodel.FishMapViewModel
+import timber.log.Timber
 
 class FishMapFragment : Fragment(), OnMapReadyCallback, KodeinAware {
 
@@ -44,6 +50,10 @@ class FishMapFragment : Fragment(), OnMapReadyCallback, KodeinAware {
         mMap = binding.mapView
         mMap?.onCreate(savedInstanceState)
         mMap?.getMapAsync(this)
+
+        binding.buttonFilter.setOnClickListener {
+            findNavController().navigate(R.id.filter_fish_fragment)
+        }
 
         return binding.root
     }
@@ -79,10 +89,27 @@ class FishMapFragment : Fragment(), OnMapReadyCallback, KodeinAware {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        googleMap.addMarker(MarkerOptions().position(LatLng(0.0, 0.0)).title("Marker"))
+        googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+
         if(viewModel.lake != null) {
             googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(viewModel.lake!!.getLatLngBounds(), 8))
         }
-        googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+
+        viewModel.fishListObservable.observeForever {
+            Timber.d("wywoluje sie observer ${viewModel.fishFilter.weightFrom} - ${viewModel.fishFilter.weightTo}")
+            Timber.d("ile rekordow: ${it.size}")
+            if(it.size > 0) {
+                googleMap.clear()
+                it.forEach {
+                    googleMap.addMarker(MarkerOptions().position(it.getLatLng()).title("${it.species} ${it.weight.toInt()}kg")).tag = it
+                }
+            }
+            googleMap.setOnInfoWindowClickListener {
+                val bundle = Bundle()
+                bundle.putParcelable("fish", it.tag as Parcelable?)
+                findNavController().navigate(R.id.fish_details_fragment, bundle)
+            }
+        }
+        viewModel.load()
     }
 }

@@ -73,10 +73,10 @@ abstract class AppDatabase : RoomDatabase() {
             INSTANCE?.fishDao()?.insertFish(
                 Fish(
                     1,
-                    "Karp pełnołuski",
+                    "Pełnołuski",
                     12.86f,
                     97,
-                    1616107968,
+                    1616107968000,
                     "Kulka proteinowa",
                     "karpik złowiony na 12 metrach głębokości na chod riga",
                     "53.739920, 18.494587",
@@ -87,11 +87,11 @@ abstract class AppDatabase : RoomDatabase() {
             )
             INSTANCE?.fishDao()?.insertFish(
                 Fish(
-                    1,
-                    "Karp pełnołuski",
-                    12.86f,
-                    97,
-                    1616107968,
+                    2,
+                    "Jesiotr",
+                    15.50f,
+                    123,
+                    1616107968000,
                     "Kulka proteinowa",
                     "karpik złowiony na 12 metrach głębokości na chod riga",
                     "53.744402, 18.495760",
@@ -102,12 +102,12 @@ abstract class AppDatabase : RoomDatabase() {
             )
             INSTANCE?.fishDao()?.insertFish(
                 Fish(
-                    1,
-                    "Karp pełnołuski",
-                    12.86f,
+                    3,
+                    "Amur",
+                    23.00f,
                     97,
-                    1616107968,
-                    "Kulka proteinowa",
+                        1616290247997,
+                    "Kukurydza truskawkowa",
                     "karpik złowiony na 12 metrach głębokości na chod riga",
                     "53.742567, 18.499369",
                     4,
@@ -117,14 +117,14 @@ abstract class AppDatabase : RoomDatabase() {
             )
             INSTANCE?.fishDao()?.insertFish(
                 Fish(
-                    1,
-                    "Karp pełnołuski",
-                    12.86f,
-                    97,
-                    1616107968,
-                    "Kulka proteinowa",
+                    4,
+                    "Królewski",
+                    3.45f,
+                    35,
+                        1616290247997,
+                    "Pellet",
                     "karpik złowiony na 12 metrach głębokości na chod riga",
-                    "53.742609, 18.494443",
+                    "53.742214, 18.496348",
                     4,
                     1,
                     "costam"

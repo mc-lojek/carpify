@@ -19,5 +19,28 @@
     <string name="username">Nazwa użytkownika</string>
     <string name="password">Hasło</string>
 
+    <string name="all_fish">Wszystkie</string>
+    <string name="common">Pełnołuski</string>
+    <string name="mirror">Królewski</string>
+    <string name="grasscarp">Amur</string>
+    <string name="sturgeon">Jesiotr</string>
+    <string name="catfish">Sum</string>
+    <string name="other">Inne</string>
+
+    <string name="date_from">Data od:</string>
+    <string name="date_to">data do:</string>
+    <string name="weight_from">Waga od:</string>
+    <string name="weight_to">Waga do:</string>
+    <string name="length_from">Długość od:</string>
+    <string name="length_to">Długość do:</string>
+
+    <string name="kg">kg</string>
+    <string name="cm">cm</string>
+
+    <string name="apply">Zastosuj</string>
+    <string name="cancel">Anuluj</string>
+    <string name="reset">Resetuj</string>
+
+
 
 </resources>

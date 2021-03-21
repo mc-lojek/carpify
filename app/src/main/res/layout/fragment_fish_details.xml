@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+        <variable
+            name="fish"
+            type="pl.mclojek.carpify.domain.model.Fish" />
+    </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -23,6 +29,7 @@
                 android:text="@string/species" />
 
             <TextView
+                android:text="@{fish.species}"
                 android:id="@+id/text_view_species"
                 style="@style/DynamicTextViewStyle" />
         </LinearLayout>
@@ -42,6 +49,7 @@
 
                 <TextView
                     android:id="@+id/text_view_weight"
+                    android:text="@{fish.weight + `kg`}"
                     style="@style/DynamicTextViewStyle" />
             </LinearLayout>
 
@@ -55,6 +63,7 @@
                     android:text="@string/size" />
 
                 <TextView
+                    android:text="@{fish.size + `cm`}"
                     android:id="@+id/text_view_size"
                     style="@style/DynamicTextViewStyle" />
             </LinearLayout>
@@ -67,6 +76,7 @@
                 android:text="@string/datetime" />
 
             <TextView
+                android:text="@{fish.getDateString()}"
                 android:id="@+id/text_view_datetime"
                 style="@style/DynamicTextViewStyle" />
         </LinearLayout>
@@ -78,6 +88,7 @@
                 android:text="@string/bait" />
 
             <TextView
+                android:text="@{fish.bait}"
                 android:id="@+id/text_view_bait"
                 style="@style/DynamicTextViewStyle" />
         </LinearLayout>
@@ -89,6 +100,7 @@
                 android:text="@string/desc" />
 
             <TextView
+                android:text="@{fish.desc}"
                 android:id="@+id/text_view_desc"
                 style="@style/DynamicTextViewStyle" />
         </LinearLayout>

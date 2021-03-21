@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import org.kodein.di.Kodein
@@ -27,6 +29,8 @@ import pl.mclojek.carpify.presentation.viewmodel.LakesViewModel
 import timber.log.Timber
 
 class LakesMapFragment : Fragment(), KodeinAware, OnMapReadyCallback {
+
+    private val POLAND_BOUNDS = LatLngBounds(LatLng(48.834318, 14.019607), LatLng(54.938474, 24.280836))
 
     override val kodein: Kodein by closestKodein()
     private var mMap: MapView? = null
@@ -86,6 +90,9 @@ class LakesMapFragment : Fragment(), KodeinAware, OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(POLAND_BOUNDS, 8))
+
         viewModel.lakeListObservable.observeForever {
             if(it.size > 0) {
                 it.forEach {
