@@ -55,6 +55,10 @@ class FishMapFragment : Fragment(), OnMapReadyCallback, KodeinAware {
             findNavController().navigate(R.id.filter_fish_fragment)
         }
 
+        binding.buttonAddFish.setOnClickListener {
+            findNavController().navigate(R.id.add_fish_fragment)
+        }
+
         return binding.root
     }
 
@@ -93,6 +97,7 @@ class FishMapFragment : Fragment(), OnMapReadyCallback, KodeinAware {
 
         if(viewModel.lake != null) {
             googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(viewModel.lake!!.getLatLngBounds(), 8))
+            googleMap.setLatLngBoundsForCameraTarget(viewModel.lake!!.getLatLngBounds())
         }
 
         viewModel.fishListObservable.observeForever {

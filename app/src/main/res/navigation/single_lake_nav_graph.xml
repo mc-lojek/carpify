@@ -19,4 +19,14 @@
         android:name="pl.mclojek.carpify.presentation.fragment.FishDetailsFragment"
         android:label="FishDetailsFragment"
         tools:layout="@layout/fragment_fish_details" />
+    <fragment
+        android:id="@+id/add_fish_fragment"
+        android:name="pl.mclojek.carpify.presentation.fragment.AddFishFragment"
+        android:label="AddFishFragment"
+        tools:layout="@layout/fragment_add_fish" />
+    <fragment
+        android:id="@+id/select_coords_fragment"
+        android:name="pl.mclojek.carpify.presentation.fragment.SelectCoordsFragment"
+        android:label="SelectCoordsFragment"
+        tools:layout="@layout/fragment_select_coords" />
 </navigation>

@@ -40,7 +40,11 @@
     <string name="apply">Zastosuj</string>
     <string name="cancel">Anuluj</string>
     <string name="reset">Resetuj</string>
-
+    <string name="select_coords">Wybierz pozycję</string>
+    <string name="confirm">Potwierdź</string>
+    <string name="length">Długość</string>
+    <string name="date">Data</string>
+    <string name="time">Godzina</string>
 
 
 </resources>

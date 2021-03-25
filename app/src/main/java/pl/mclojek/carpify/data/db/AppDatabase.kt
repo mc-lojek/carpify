@@ -25,8 +25,8 @@ abstract class AppDatabase : RoomDatabase() {
         fun getInstance(): AppDatabase {
             if (INSTANCE == null) {
                 INSTANCE =
-                    Room.databaseBuilder(CONTEXT!!, AppDatabase::class.java, "app_db")
-                        .build()
+                        Room.databaseBuilder(CONTEXT!!, AppDatabase::class.java, "app_db")
+                                .build()
                 prePopulate()
                 prePopulateFish()
             }
@@ -35,100 +35,145 @@ abstract class AppDatabase : RoomDatabase() {
 
         private fun prePopulate() {
             INSTANCE?.lakeDao()?.insertLake(
-                Lake(
-                    1,
-                    "Jezioro Miłoszewskie",
-                    "Pomorskie",
-                    "54.122734, 17.420446, 54.132872, 17.434327"
-                ),
+                    Lake(
+                            1,
+                            "Jezioro Miłoszewskie",
+                            "Pomorskie",
+                            "54.122734, 17.420446, 54.132872, 17.434327"
+                    ),
             )
             INSTANCE?.lakeDao()?.insertLake(
-                Lake(
-                    2,
-                    "Bobolice",
-                    "Pomorskie",
-                    "53.975909, 16.543280, 53.979544, 16.547207"
-                )
+                    Lake(
+                            2,
+                            "Bobolice",
+                            "Pomorskie",
+                            "53.975909, 16.543280, 53.979544, 16.547207"
+                    )
             )
             INSTANCE?.lakeDao()?.insertLake(
-                Lake(
-                    3,
-                    "Krążno",
-                    "Pomorskie",
-                    "54.096755, 17.606413, 54.101348, 17.613300"
-                )
+                    Lake(
+                            3,
+                            "Krążno",
+                            "Pomorskie",
+                            "54.096755, 17.606413, 54.101348, 17.613300"
+                    )
             )
             INSTANCE?.lakeDao()?.insertLake(
-                Lake(
-                    4,
-                    "Tuszynek",
-                    "Pomorskie",
-                    "53.739333, 18.492747, 53.744978, 18.500091"
-                )
+                    Lake(
+                            4,
+                            "Tuszynek",
+                            "Pomorskie",
+                            "53.739333, 18.492747, 53.744978, 18.500091"
+                    )
             )
 
         }
 
         private fun prePopulateFish() {
             INSTANCE?.fishDao()?.insertFish(
-                Fish(
-                    1,
-                    "Pełnołuski",
-                    12.86f,
-                    97,
-                    1616107968000,
-                    "Kulka proteinowa",
-                    "karpik złowiony na 12 metrach głębokości na chod riga",
-                    "53.739920, 18.494587",
-                    4,
-                    1,
-                    "costam"
-                ),
+                    Fish(
+                            1,
+                            "Pełnołuski",
+                            12.86f,
+                            97,
+                            1616107968000,
+                            "Kulka proteinowa",
+                            "karpik złowiony na 12 metrach głębokości na chod riga",
+                            "53.739920, 18.494587",
+                            4,
+                            1,
+                            "costam"
+                    ),
             )
             INSTANCE?.fishDao()?.insertFish(
-                Fish(
-                    2,
-                    "Jesiotr",
-                    15.50f,
-                    123,
-                    1616107968000,
-                    "Kulka proteinowa",
-                    "karpik złowiony na 12 metrach głębokości na chod riga",
-                    "53.744402, 18.495760",
-                    4,
-                    1,
-                    "costam"
-                ),
+                    Fish(
+                            2,
+                            "Jesiotr",
+                            15.50f,
+                            123,
+                            1616107968000,
+                            "Kulka proteinowa",
+                            "karpik złowiony na 12 metrach głębokości na chod riga",
+                            "53.744402, 18.495760",
+                            4,
+                            1,
+                            "costam"
+                    ),
             )
             INSTANCE?.fishDao()?.insertFish(
-                Fish(
-                    3,
-                    "Amur",
-                    23.00f,
-                    97,
-                        1616290247997,
-                    "Kukurydza truskawkowa",
-                    "karpik złowiony na 12 metrach głębokości na chod riga",
-                    "53.742567, 18.499369",
-                    4,
-                    1,
-                    "costam"
-                ),
+                    Fish(
+                            3,
+                            "Amur",
+                            23.00f,
+                            97,
+                            1616290247997,
+                            "Kukurydza truskawkowa",
+                            "karpik złowiony na 12 metrach głębokości na chod riga",
+                            "53.742567, 18.499369",
+                            4,
+                            1,
+                            "costam"
+                    ),
             )
             INSTANCE?.fishDao()?.insertFish(
-                Fish(
-                    4,
-                    "Królewski",
-                    3.45f,
-                    35,
-                        1616290247997,
-                    "Pellet",
-                    "karpik złowiony na 12 metrach głębokości na chod riga",
-                    "53.742214, 18.496348",
-                    4,
-                    1,
-                    "costam"
-                ),
+                    Fish(
+                            4,
+                            "Królewski",
+                            3.45f,
+                            35,
+                            1616290247997,
+                            "Pellet",
+                            "karpik złowiony na 12 metrach głębokości na chod riga",
+                            "53.742214, 18.496348",
+                            4,
+                            1,
+                            "costam"
+                    ),
+            )
+            INSTANCE?.fishDao()?.insertFish(
+                    Fish(
+                            5,
+                            "Królewski",
+                            32.00f,
+                            102,
+                            1616290249999,
+                            "Pellet",
+                            "karpik złowiony na 12 metrach głębokości na chod riga",
+                            "53.742324, 18.496548",
+                            4,
+                            1,
+                            "costam"
+                    )
+            )
+            INSTANCE?.fishDao()?.insertFish(
+                    Fish(
+                            6,
+                            "Amur",
+                            13.66f,
+                            82,
+                            1616628035000,
+                            "Kukurydza truskawkowa",
+                            "karpik złowiony na 12 metrach głębokości na chod riga",
+                            "53.743426, 18.499148",
+                            4,
+                            1,
+                            "costam"
+                    ),
+            )
+            INSTANCE?.fishDao()?.insertFish(
+                    Fish(
+                            7,
+                            "Inne",
+                            13.66f,
+                            82,
+                            1616628311000,
+                            "Kukurydza truskawkowa",
+                            "karpik złowiony na 12 metrach głębokości na chod riga",
+                            "53.741110, 18.495608",
+                            4,
+                            1,
+                            "costam"
+                    ),
             )
         }
     }
