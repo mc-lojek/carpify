@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -14,7 +15,9 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 import pl.mclojek.carpify.databinding.FragmentSelectCoordsBinding
+import pl.mclojek.carpify.presentation.viewmodel.AddFishViewModel
 import pl.mclojek.carpify.presentation.viewmodel.FishMapViewModel
+import timber.log.Timber
 
 class SelectCoordsFragment : Fragment(), OnMapReadyCallback, KodeinAware {
 
@@ -43,6 +46,16 @@ class SelectCoordsFragment : Fragment(), OnMapReadyCallback, KodeinAware {
         if(viewModel.lake != null) {
             googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(viewModel.lake!!.getLatLngBounds(), 8))
             googleMap.setLatLngBoundsForCameraTarget(viewModel.lake!!.getLatLngBounds())
+
+            if(viewModel.newFishPosObservable.value != null) {
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(viewModel.newFishPosObservable.value!!))
+            }
+        }
+
+        binding.buttonConfirm.setOnClickListener {
+            Timber.d("Target pos: ${googleMap.cameraPosition.target}")
+            viewModel.newFishPosObservable.value = googleMap.cameraPosition.target
+            findNavController().navigateUp()
         }
     }
 

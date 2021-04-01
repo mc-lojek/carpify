@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -54,6 +56,10 @@ class LakesMapFragment : Fragment(), KodeinAware, OnMapReadyCallback {
         mMap?.onCreate(savedInstanceState)
         mMap?.getMapAsync(this)
 
+        val searchEditText = binding.searchView.findViewById<EditText>(R.id.search_src_text)
+        searchEditText.setTextColor(resources.getColor(R.color.white))
+        val searchImage = binding.searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
+        searchImage.setImageResource(R.drawable.ic_baseline_search_24)
 
 
         return binding.root

@@ -18,4 +18,21 @@ class FishRepositoryImpl: FishRepository {
             return@withContext AppDatabase.getInstance().fishDao().getFishForLakeFiltered(lakeId, fishFilter.speciesList, fishFilter.timeFrom, fishFilter.timeTo, fishFilter.weightFrom, fishFilter.weightTo, fishFilter.lengthFrom, fishFilter.lengthTo)
         }
     }
+
+    override suspend fun  getFishListForUser(userId: Int): List<Fish> {
+        return withContext(Dispatchers.IO) {
+            return@withContext AppDatabase.getInstance().fishDao().getFishForUser(userId)
+        }
+    }
+    override suspend fun  getFishListForUserFiltered(userId: Int, fishFilter: FishFilter): List<Fish> {
+        return withContext(Dispatchers.IO) {
+            return@withContext AppDatabase.getInstance().fishDao().getFishForUserFiltered(userId, fishFilter.speciesList, fishFilter.timeFrom, fishFilter.timeTo, fishFilter.weightFrom, fishFilter.weightTo, fishFilter.lengthFrom, fishFilter.lengthTo)
+        }
+    }
+
+    override suspend fun addFish(fish: Fish) {
+        return withContext(Dispatchers.IO) {
+            return@withContext AppDatabase.getInstance().fishDao().insertFish(fish)
+        }
+    }
 }

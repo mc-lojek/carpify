@@ -9,11 +9,11 @@ import pl.mclojek.carpify.R
 import pl.mclojek.carpify.domain.model.Fish
 
 class FishRecyclerAdapter(
-    private var fishList: ArrayList<Fish>,
+    private var fishList: List<Fish>,
     private val onItemClicked: (Fish) -> Unit
 ) : RecyclerView.Adapter<FishRecyclerAdapter.ViewHolder>() {
 
-    fun changeList(list: ArrayList<Fish>) {
+    fun changeList(list: List<Fish>) {
         this.fishList = list
         notifyDataSetChanged()
     }

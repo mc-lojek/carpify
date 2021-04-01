@@ -1,11 +1,13 @@
 package pl.mclojek.carpify.presentation.fragment
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.squareup.picasso.Picasso
 import pl.mclojek.carpify.R
 import pl.mclojek.carpify.domain.model.Fish
 import pl.mclojek.carpify.databinding.FragmentFishDetailsBinding
@@ -37,7 +39,11 @@ class FishDetailsFragment : Fragment() {
                 textViewDatetime.text = fish.datetime.toString()
                 textViewBait.text = fish.bait
                 textViewDesc.text = fish.desc
-
+                Picasso.get()
+                    .load(Uri.parse(fish.img))
+                    .placeholder(R.drawable.carp)
+                    .error(R.drawable.ic_gun_pointer)
+                    .into(imageView)
             }
 
         }

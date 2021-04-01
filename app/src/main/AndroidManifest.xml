@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pl.mclojek.carpify">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -10,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Carpify">
-        <activity android:name=".presentation.activity.SingleLakeActivity"></activity>
+        <activity android:name=".presentation.activity.SingleLakeActivity"/>
         <activity android:name=".presentation.activity.RegisterActivity" />
         <activity android:name=".presentation.activity.LoginActivity" />
         <activity android:name=".presentation.activity.SplashActivity">
@@ -21,6 +25,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.activity.MainActivity" />
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

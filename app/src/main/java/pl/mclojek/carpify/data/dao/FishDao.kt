@@ -22,6 +22,19 @@ interface FishDao {
                                        lengthFrom: Int,
                                        lengthTo: Int): List<Fish>
 
+    @Query("SELECT * FROM fish WHERE hunterId = :userId ")
+    suspend fun getFishForUser(userId: Int): List<Fish>
+
+    @Query("SELECT * FROM fish WHERE hunterId = :userId AND species IN (:speciesList) AND datetime > :timeFrom AND datetime < :timeTo AND weight > :weightFrom AND weight < :weightTo AND size > :lengthFrom AND size < :lengthTo")
+    suspend fun getFishForUserFiltered(userId: Int,
+                                       speciesList: List<String>,
+                                       timeFrom: Long,
+                                       timeTo: Long,
+                                       weightFrom: Float,
+                                       weightTo: Float,
+                                       lengthFrom: Int,
+                                       lengthTo: Int): List<Fish>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFish(fish: Fish)
 

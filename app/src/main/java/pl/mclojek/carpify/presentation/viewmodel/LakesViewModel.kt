@@ -22,7 +22,6 @@ class LakesViewModel(
     fun load() {
         viewModelScope.launch() {
             lakeListObservable.value = getLakesListUseCase.getLakesList()
-            Timber.d(lakeListObservable.value?.get(0)?.name)
         }
     }
 
