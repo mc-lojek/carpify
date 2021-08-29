@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
+import androidx.core.view.allViews
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import okhttp3.internal.format
@@ -41,16 +42,13 @@ class FilterFishFragment : Fragment(), KodeinAware {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFilterFishBinding.inflate(inflater, container, false)
 
         setupChips()
         setupViews()
         setupDialogs()
         setupButtons()
-
-
-
 
 
 

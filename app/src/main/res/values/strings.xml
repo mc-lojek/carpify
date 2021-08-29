@@ -45,6 +45,7 @@
     <string name="length">Długość</string>
     <string name="date">Data</string>
     <string name="time">Godzina</string>
+    <string name="image_info">fish image</string>
 
 
 </resources>

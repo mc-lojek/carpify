@@ -35,10 +35,6 @@
         android:name="pl.mclojek.carpify.presentation.fragment.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/fragment_settings" />
-
-
-
-
     <fragment
         android:id="@+id/fish_details_fragment"
         android:name="pl.mclojek.carpify.presentation.fragment.FishDetailsFragment"
