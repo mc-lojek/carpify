@@ -3,6 +3,7 @@ package pl.mclojek.carpify.data.repository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import pl.mclojek.carpify.data.db.AppDatabase
+import pl.mclojek.carpify.data.model.Resource
 import pl.mclojek.carpify.domain.model.Fish
 import pl.mclojek.carpify.domain.model.FishFilter
 import pl.mclojek.carpify.domain.repository.FishRepository
@@ -30,9 +31,10 @@ class FishRepositoryImpl: FishRepository {
         }
     }
 
-    override suspend fun addFish(fish: Fish) {
-        return withContext(Dispatchers.IO) {
+    override suspend fun addFish(fish: Fish): Resource<String> {
+        withContext(Dispatchers.IO) {
             return@withContext AppDatabase.getInstance().fishDao().insertFish(fish)
         }
+        return Resource.Success("Pomyślnie ????")
     }
 }

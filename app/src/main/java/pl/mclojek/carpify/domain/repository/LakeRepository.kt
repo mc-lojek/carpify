@@ -1,8 +1,8 @@
 package pl.mclojek.carpify.domain.repository
 
+import pl.mclojek.carpify.data.model.Resource
 import pl.mclojek.carpify.domain.model.Lake
-import pl.mclojek.carpify.network.ApiResponse
 
 interface LakeRepository {
-    suspend fun getAllLakes(): ApiResponse<List<Lake>>
+    suspend fun getAllLakes(): Resource<List<Lake>>
 }

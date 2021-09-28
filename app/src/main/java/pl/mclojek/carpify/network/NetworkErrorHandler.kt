@@ -1,17 +1,18 @@
 package pl.mclojek.carpify.network
 
 import org.json.JSONObject
+import pl.mclojek.carpify.data.model.Resource
 import retrofit2.HttpException
 import timber.log.Timber
 import java.net.SocketTimeoutException
 
 object NetworkErrorHandler {
 
-    fun <T : Any> handleException(t: Throwable): ApiResponse<T> {
+    fun <T : Any> handleException(t: Throwable): Resource<T> {
         return when (t) {
-            is HttpException -> ApiResponse.Error(handleHttpException(t))
-            is SocketTimeoutException -> ApiResponse.Error(handleSocketTimeoutException(t))
-            else -> ApiResponse.Error(t.message ?: "(1) Undefined Error Occured, contact developers")
+            is HttpException -> Resource.Error(handleHttpException(t))
+            is SocketTimeoutException -> Resource.Error(handleSocketTimeoutException(t))
+            else -> Resource.Error(t.message ?: "(1) Undefined Error Occured, contact developers")
         }
     }
 

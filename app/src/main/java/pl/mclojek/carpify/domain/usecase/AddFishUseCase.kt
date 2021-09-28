@@ -8,8 +8,4 @@ class AddFishUseCase(private val repository: FishRepository) {
     suspend fun addFish(fish: Fish) {
         repository.addFish(fish)
     }
-
-    suspend fun getFishListForLakeFiltered(lakeId: Int, fishFilter: FishFilter): List<Fish> {
-        return repository.getFishListForLakeFiltered(lakeId, fishFilter)
-    }
 }

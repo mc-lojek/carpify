@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.parcelize.Parcelize
+import pl.mclojek.carpify.data.model.FishDataModel
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.logging.SimpleFormatter
@@ -35,6 +36,12 @@ data class Fish(
         val sdf = SimpleDateFormat("dd.MM.yyyy hh:mm")
         val date = Date(datetime)
         return sdf.format(date)
+    }
+
+    fun toDataModel(): FishDataModel {
+        return FishDataModel(
+            id, species, weight, size, datetime, bait, desc, coords, lakeId, hunterId, img
+        )
     }
 
 }

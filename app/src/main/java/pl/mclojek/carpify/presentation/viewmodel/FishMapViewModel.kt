@@ -8,13 +8,13 @@ import kotlinx.coroutines.launch
 import pl.mclojek.carpify.domain.model.Fish
 import pl.mclojek.carpify.domain.model.FishFilter
 import pl.mclojek.carpify.domain.model.Lake
+import pl.mclojek.carpify.domain.repository.FishRepository
 import pl.mclojek.carpify.domain.usecase.AddFishUseCase
 import pl.mclojek.carpify.domain.usecase.GetFishListForLakeUseCase
 import timber.log.Timber
 
 class FishMapViewModel(
-        private val getFishListForLakeUseCase: GetFishListForLakeUseCase,
-        private val addFishUseCase: AddFishUseCase
+        private val fishRepository: FishRepository,
 ) : ViewModel() {
 
     var lake: Lake? = null
@@ -30,14 +30,13 @@ class FishMapViewModel(
 
     fun load() {
         viewModelScope.launch() {
-            fishListObservable.value = getFishListForLakeUseCase.getFishListForLakeFiltered(lake?.id!!, fishFilter)
+            fishListObservable.value = fishRepository.getFishListForLakeFiltered(lake?.id!!, fishFilter)
         }
     }
 
     fun addFish(fish: Fish) {
         viewModelScope.launch {
-            addFishUseCase.addFish(fish)
+            fishRepository.addFish(fish)
         }
     }
-
 }

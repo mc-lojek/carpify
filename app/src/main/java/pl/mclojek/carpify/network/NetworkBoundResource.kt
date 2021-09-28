@@ -3,6 +3,7 @@ package pl.mclojek.carpify.network
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
+import pl.mclojek.carpify.data.model.Resource
 
 // ResultType: Type for the Resource data.
 // RequestType: Type for the API response.
@@ -22,7 +23,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
 
     // Called to create the API call.
     @MainThread
-    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
+    protected abstract fun createCall(): LiveData<Resource<RequestType>>
 
     // Called when the fetch fails. The child class may want to reset components
     // like rate limiter.

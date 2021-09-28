@@ -14,11 +14,11 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 import pl.mclojek.carpify.R
+import pl.mclojek.carpify.data.model.Resource
 import pl.mclojek.carpify.databinding.FragmentLakesListBinding
 import pl.mclojek.carpify.presentation.adapter.LakeRecyclerAdapter
 import pl.mclojek.carpify.domain.model.Lake
 import pl.mclojek.carpify.databinding.FragmentMyFishBinding
-import pl.mclojek.carpify.network.ApiResponse
 import pl.mclojek.carpify.presentation.activity.SingleLakeActivity
 import pl.mclojek.carpify.presentation.utils.ItemClickedListener
 import pl.mclojek.carpify.presentation.viewmodel.LakesViewModel
@@ -33,18 +33,18 @@ class LakesListFragment : Fragment(), KodeinAware, ItemClickedListener<Lake> {
     private lateinit var adapter: LakeRecyclerAdapter
     private val viewModel: LakesViewModel by instance()
 
-    private val observer = Observer<ApiResponse<List<Lake>>> {
+    private val observer = Observer<Resource<List<Lake>>> {
         when (it) {
-            is ApiResponse.Success -> {
+            is Resource.Success -> {
                 binding.progressBar.visibility = View.GONE
                 adapter.updateData(it.data!!)
                 Timber.tag("FOO").d("Sukcesik")
             }
-            is ApiResponse.Error -> {
+            is Resource.Error -> {
                 binding.progressBar.visibility = View.GONE
                 Timber.tag("FOO").d("Errorek")
             }
-            is ApiResponse.Loading -> {
+            is Resource.Loading -> {
                 binding.progressBar.visibility = View.VISIBLE
                 Timber.tag("FOO").d("Ladowanko")
             }

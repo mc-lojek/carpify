@@ -15,7 +15,6 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 import pl.mclojek.carpify.databinding.FragmentSelectCoordsBinding
-import pl.mclojek.carpify.presentation.viewmodel.AddFishViewModel
 import pl.mclojek.carpify.presentation.viewmodel.FishMapViewModel
 import timber.log.Timber
 

@@ -22,9 +22,9 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 import pl.mclojek.carpify.R
+import pl.mclojek.carpify.data.model.Resource
 import pl.mclojek.carpify.databinding.FragmentLakesMapBinding
 import pl.mclojek.carpify.domain.model.Lake
-import pl.mclojek.carpify.network.ApiResponse
 import pl.mclojek.carpify.presentation.activity.SingleLakeActivity
 import pl.mclojek.carpify.presentation.viewmodel.LakesViewModel
 import timber.log.Timber
@@ -34,14 +34,14 @@ class LakesMapFragment : Fragment(), KodeinAware, OnMapReadyCallback {
     private val POLAND_BOUNDS = LatLngBounds(LatLng(48.834318, 14.019607), LatLng(54.938474, 24.280836))
 
     override val kodein: Kodein by closestKodein()
-    private var mapView: MapView? = null
     private lateinit var binding: FragmentLakesMapBinding
     private val viewModel: LakesViewModel by instance()
+    private var mapView: MapView? = null
     private lateinit var map: GoogleMap
 
-    private val observer = Observer<ApiResponse<List<Lake>>> {
+    private val observer = Observer<Resource<List<Lake>>> {
         when (it) {
-            is ApiResponse.Success -> {
+            is Resource.Success -> {
                 binding.progressBar.visibility = View.GONE
                 Timber.tag("FOO").d("Sukcesik")
 
@@ -53,12 +53,12 @@ class LakesMapFragment : Fragment(), KodeinAware, OnMapReadyCallback {
                     startActivity(intent)
                 }
             }
-            is ApiResponse.Error -> {
+            is Resource.Error -> {
                 binding.progressBar.visibility = View.GONE
                 Snackbar.make(binding.root, it.message!!, Snackbar.LENGTH_LONG).show()
                 Timber.tag("FOO").d("Errorek")
             }
-            is ApiResponse.Loading -> {
+            is Resource.Loading -> {
                 binding.progressBar.visibility = View.VISIBLE
                 Timber.tag("FOO").d("Ladowanko")
             }
@@ -67,7 +67,6 @@ class LakesMapFragment : Fragment(), KodeinAware, OnMapReadyCallback {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
         mapView?.onSaveInstanceState(outState)
     }
 

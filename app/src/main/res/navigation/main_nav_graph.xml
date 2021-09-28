@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/page_3">
-
     <fragment
         android:id="@+id/page_1"
         android:name="pl.mclojek.carpify.presentation.fragment.MyFishFragment"

@@ -14,7 +14,9 @@ data class FishDataModel(
     val bait: String,
     val desc: String,
     val coords: String,
+    @SerializedName("lake")
     val lakeId: Int,
+    @SerializedName("hunter")
     val hunterId: Int,
     @SerializedName("image")
     val img: String
