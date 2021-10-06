@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import pl.mclojek.carpify.domain.model.Fish
 import pl.mclojek.carpify.domain.model.Lake
 import pl.mclojek.carpify.data.dao.FishDao
@@ -27,13 +30,13 @@ abstract class AppDatabase : RoomDatabase() {
                 INSTANCE =
                         Room.databaseBuilder(CONTEXT!!, AppDatabase::class.java, "app_db")
                                 .build()
-                prePopulate()
-                prePopulateFish()
+                //prePopulate()
+                //prePopulateFish()
             }
             return INSTANCE!!
         }
 
-        private fun prePopulate() {
+        private fun prePopulate() = CoroutineScope(Dispatchers.IO).launch {
             INSTANCE?.lakeDao()?.insertLake(
                     Lake(
                             1,

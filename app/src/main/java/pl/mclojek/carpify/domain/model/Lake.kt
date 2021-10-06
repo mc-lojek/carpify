@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import kotlinx.parcelize.Parcelize
+import pl.mclojek.carpify.data.model.LakeDataModel
 
 @Entity
 @Parcelize
@@ -24,5 +25,9 @@ data class Lake(
     fun getLatLngBounds(): LatLngBounds {
         val splitted = bounds.split(",").map { it.toDouble() }
         return LatLngBounds(LatLng(splitted[0], splitted[1]), LatLng(splitted[2], splitted[3]))
+    }
+
+    fun toDataModel(): LakeDataModel {
+        return LakeDataModel(id, name, bounds, voivodeship)
     }
 }

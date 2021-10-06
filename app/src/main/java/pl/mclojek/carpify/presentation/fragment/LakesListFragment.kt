@@ -6,19 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
-import pl.mclojek.carpify.R
 import pl.mclojek.carpify.data.model.Resource
 import pl.mclojek.carpify.databinding.FragmentLakesListBinding
 import pl.mclojek.carpify.presentation.adapter.LakeRecyclerAdapter
 import pl.mclojek.carpify.domain.model.Lake
-import pl.mclojek.carpify.databinding.FragmentMyFishBinding
 import pl.mclojek.carpify.presentation.activity.SingleLakeActivity
 import pl.mclojek.carpify.presentation.utils.ItemClickedListener
 import pl.mclojek.carpify.presentation.viewmodel.LakesViewModel
@@ -33,7 +31,11 @@ class LakesListFragment : Fragment(), KodeinAware, ItemClickedListener<Lake> {
     private lateinit var adapter: LakeRecyclerAdapter
     private val viewModel: LakesViewModel by instance()
 
-    private val observer = Observer<Resource<List<Lake>>> {
+    private val observer = Observer<List<Lake>> { lakes ->
+
+        binding.progressBar.visibility = View.GONE
+        lakes.let { adapter.updateData(it) }
+        /*
         when (it) {
             is Resource.Success -> {
                 binding.progressBar.visibility = View.GONE
@@ -49,6 +51,7 @@ class LakesListFragment : Fragment(), KodeinAware, ItemClickedListener<Lake> {
                 Timber.tag("FOO").d("Ladowanko")
             }
         }
+        */
     }
 
     override fun onCreateView(
