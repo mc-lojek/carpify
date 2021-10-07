@@ -16,6 +16,10 @@ class MyFishViewModel(
     var userId: Int = 1
     var fishFilter: FishFilter = FishFilter()
 
+    //TODO
+
+    //not working
+
     val fishListObservable: MutableLiveData<List<Fish>> by lazy {
         MutableLiveData<List<Fish>>().also {
             load()

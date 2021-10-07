@@ -32,8 +32,6 @@ class LakesMapFragment : BaseMapFragment(), KodeinAware, OnMapReadyCallback {
     private lateinit var map: GoogleMap
 
     private val observer = Observer<List<Lake>> { lakes ->
-
-        binding.progressBar.visibility = View.GONE
         lakes.let {
             it.forEach {
                 map.addMarker(MarkerOptions().position(it.getCenterLatLng()).title(it.name)).tag = it

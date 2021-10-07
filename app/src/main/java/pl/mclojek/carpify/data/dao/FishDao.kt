@@ -1,42 +1,46 @@
 package pl.mclojek.carpify.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import pl.mclojek.carpify.domain.model.Fish
-import pl.mclojek.carpify.domain.model.FishFilter
 
 @Dao
 interface FishDao {
     @Query("SELECT * FROM fish")
-    suspend fun getAllFish(): List<Fish>
+    fun getAllFish(): LiveData<List<Fish>>
 
     @Query("SELECT * FROM fish WHERE lakeId = :lakeId ")
     suspend fun getFishForLake(lakeId: Int): List<Fish>
 
     @Query("SELECT * FROM fish WHERE lakeId = :lakeId AND species IN (:speciesList) AND datetime > :timeFrom AND datetime < :timeTo AND weight > :weightFrom AND weight < :weightTo AND size > :lengthFrom AND size < :lengthTo")
-    suspend fun getFishForLakeFiltered(lakeId: Int,
-                                       speciesList: List<String>,
-                                       timeFrom: Long,
-                                       timeTo: Long,
-                                       weightFrom: Float,
-                                       weightTo: Float,
-                                       lengthFrom: Int,
-                                       lengthTo: Int): List<Fish>
+    fun getFishForLakeFiltered(
+        lakeId: Int,
+        speciesList: List<String>,
+        timeFrom: Long,
+        timeTo: Long,
+        weightFrom: Float,
+        weightTo: Float,
+        lengthFrom: Int,
+        lengthTo: Int
+    ): List<Fish>
 
     @Query("SELECT * FROM fish WHERE hunterId = :userId ")
-    suspend fun getFishForUser(userId: Int): List<Fish>
+    fun getFishForUser(userId: Int): List<Fish>
 
     @Query("SELECT * FROM fish WHERE hunterId = :userId AND species IN (:speciesList) AND datetime > :timeFrom AND datetime < :timeTo AND weight > :weightFrom AND weight < :weightTo AND size > :lengthFrom AND size < :lengthTo")
-    suspend fun getFishForUserFiltered(userId: Int,
-                                       speciesList: List<String>,
-                                       timeFrom: Long,
-                                       timeTo: Long,
-                                       weightFrom: Float,
-                                       weightTo: Float,
-                                       lengthFrom: Int,
-                                       lengthTo: Int): List<Fish>
+    fun getFishForUserFiltered(
+        userId: Int,
+        speciesList: List<String>,
+        timeFrom: Long,
+        timeTo: Long,
+        weightFrom: Float,
+        weightTo: Float,
+        lengthFrom: Int,
+        lengthTo: Int
+    ): List<Fish>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFish(fish: Fish)
+    suspend fun insertFish(fish: Fish)
 
     @Delete
     suspend fun delete(fish: Fish)

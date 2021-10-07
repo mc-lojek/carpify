@@ -72,7 +72,7 @@ abstract class AppDatabase : RoomDatabase() {
 
         }
 
-        private fun prePopulateFish() {
+        private suspend fun prePopulateFish() {
             INSTANCE?.fishDao()?.insertFish(
                     Fish(
                             1,

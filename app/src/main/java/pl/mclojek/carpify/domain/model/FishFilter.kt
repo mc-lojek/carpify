@@ -9,4 +9,8 @@ class FishFilter(
         var lengthFrom: Int = 0,
         var lengthTo: Int = Int.MAX_VALUE
 ) {
+
+        override fun toString(): String {
+                return "FishFilter(speciesList=$speciesList, timeFrom=$timeFrom, timeTo=$timeTo, weightFrom=$weightFrom, weightTo=$weightTo, lengthFrom=$lengthFrom, lengthTo=$lengthTo)"
+        }
 }

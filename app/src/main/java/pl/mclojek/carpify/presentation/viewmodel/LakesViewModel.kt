@@ -1,6 +1,9 @@
 package pl.mclojek.carpify.presentation.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,6 +25,7 @@ class LakesViewModel(
     private fun loadLakesFromApi() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                _lakesStatusObservable.postValue(Resource.Loading(""))
                 val result = lakeRepository.getLakesFromApi()
                 when (result) {
                     is Resource.Success -> {
@@ -31,7 +35,11 @@ class LakesViewModel(
                         _lakesStatusObservable.postValue(Resource.Success(""))
                     }
                     is Resource.Error -> {
-                        _lakesStatusObservable.postValue(Resource.Error(result.message ?: "An error occured"))
+                        _lakesStatusObservable.postValue(
+                            Resource.Error(
+                                result.message ?: "An error occured"
+                            )
+                        )
                     }
                     is Resource.Loading -> {
                         _lakesStatusObservable.postValue(Resource.Loading())

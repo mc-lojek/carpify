@@ -35,5 +35,7 @@ class SingleLakeActivity : AppCompatActivity(), KodeinAware {
         //NavigationUI.setupWithNavController(binding.bottomNavigation, navController)
 
         viewModel.lake = intent.getParcelableExtra<Lake>("lake")
+        Timber.d(viewModel.lake?.name)
+        viewModel.load()
     }
 }
