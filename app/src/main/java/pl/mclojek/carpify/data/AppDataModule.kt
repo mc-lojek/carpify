@@ -6,7 +6,6 @@ import org.kodein.di.generic.instance
 import org.kodein.di.generic.singleton
 import pl.mclojek.carpify.data.repository.FishRepositoryImpl
 import pl.mclojek.carpify.data.repository.LakeRepositoryImpl
-import pl.mclojek.carpify.data.repository.RemoteFishRepositoryImpl
 import pl.mclojek.carpify.data.retrofit.RestService
 import pl.mclojek.carpify.data.retrofit.RetrofitFactory
 import pl.mclojek.carpify.domain.repository.FishRepository

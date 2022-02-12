@@ -49,10 +49,12 @@ class FishMapViewModel(
             withContext(Dispatchers.IO) {
                 _fishStatusObservable.postValue(Resource.Loading(""))
                 val result = fishRepository.getAllFishFromApi()
+                Timber.d("tutej to to jest ${result.message}")
                 when (result) {
                     is Resource.Success -> {
                         result.data!!.forEach {
                             AppDatabase.getInstance().fishDao().insertFish(it)
+                            Timber.d("insertuje")
                         }
                         _fishStatusObservable.postValue(Resource.Success(""))
                     }

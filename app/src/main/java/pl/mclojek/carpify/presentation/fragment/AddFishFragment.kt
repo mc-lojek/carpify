@@ -148,7 +148,7 @@ class AddFishFragment : Fragment(), KodeinAware {
     }
 
     private fun setupObservers() {
-        viewModel.newFishPosObservable.observeForever {
+        viewModel.newFishPosObservable.observe(viewLifecycleOwner) {
             if (it != null) {
                 binding.selectCoordsButton.setText(String.format("%.6f, %.6f", it.latitude, it.longitude))
             }
