@@ -17,12 +17,10 @@ class LakeRepositoryImpl(
 
     override suspend fun getLakesFromApi(): Resource<List<Lake>> {
         return try {
-            Timber.d("COKOLWIEK??")
 //            Resource.Success(restService.getAllLakes().map { it.toDomainModel() })
             //TODO: Temporary
             Resource.Success(getMockLakesList().map { it.toDomainModel() })
         } catch (t: Throwable) {
-            Timber.d("WYJEBALO SIE")
             NetworkErrorHandler.handleException(t)
         }
     }

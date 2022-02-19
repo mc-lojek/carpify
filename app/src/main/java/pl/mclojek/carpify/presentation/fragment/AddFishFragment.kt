@@ -78,7 +78,6 @@ class AddFishFragment : Fragment(), KodeinAware {
         }
 
         binding.confirmButton.setOnClickListener {
-            Timber.d("cokolwiek")
 
             if(chipsArray.all { !it.isChecked } ) {
                 Toast.makeText(activity, "Wybierz gatunek!", Toast.LENGTH_SHORT).show()
@@ -202,7 +201,6 @@ class AddFishFragment : Fragment(), KodeinAware {
                         Picasso.get().load(it)
                             .fit()
                             .into(binding.image)
-                        Timber.d("Uri: $it}")
                         imageUri = it
                     }
                 } else if(resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {

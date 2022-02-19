@@ -48,16 +48,16 @@ class LakesMapFragment : BaseMapFragment(), KodeinAware, OnMapReadyCallback {
         when (it) {
             is Resource.Success -> {
                 binding.progressBar.visibility = View.GONE
-                Timber.tag("FOO").d("Sukcesik")
+                Timber.d("Sukcesik")
             }
             is Resource.Error -> {
                 binding.progressBar.visibility = View.GONE
                 Snackbar.make(binding.root, it.message!!, Snackbar.LENGTH_LONG).show()
-                Timber.tag("FOO").d("Errorek")
+                Timber.d("Errorek")
             }
             is Resource.Loading -> {
                 binding.progressBar.visibility = View.VISIBLE
-                Timber.tag("FOO").d("Ladowanko")
+                Timber.d("Ladowanko")
             }
         }
     }

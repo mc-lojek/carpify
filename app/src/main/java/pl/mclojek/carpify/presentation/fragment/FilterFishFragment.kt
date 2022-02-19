@@ -84,17 +84,12 @@ class FilterFishFragment : Fragment(), KodeinAware {
             else
                 lengthToEdittext.setText("")
 
-            Timber.d("species size: ${viewModel.fishFilter.speciesList.size}")
             if (viewModel.fishFilter.speciesList.size >= 5)
             {
-                Timber.d("wchodiz w ifa")
                 chip0.isChecked = true
             } else {
-                Timber.d("Wchodiz w elsa")
                 chipsArray.forEach { chip ->
-                    Timber.d("chipek")
                     viewModel.fishFilter.speciesList.forEach {species ->
-                        Timber.d("${chip.text} vs ${species}")
                         if(chip.text.toString() == species) {
                             chip.isChecked = true
                         }
@@ -162,7 +157,6 @@ class FilterFishFragment : Fragment(), KodeinAware {
                     } catch (e: ParseException) {
                         timeFrom = 0L
                     }
-                    Timber.d(" time from: ${timeFrom}")
                 } else {
                     timeFrom = 0L
                 }
@@ -174,7 +168,6 @@ class FilterFishFragment : Fragment(), KodeinAware {
                     } catch (e: ParseException) {
                         timeTo = Long.MAX_VALUE
                     }
-                    Timber.d(" time to: ${timeTo}")
                 } else {
                     timeTo = Long.MAX_VALUE
                 }

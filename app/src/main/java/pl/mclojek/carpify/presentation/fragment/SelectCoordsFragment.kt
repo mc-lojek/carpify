@@ -52,7 +52,6 @@ class SelectCoordsFragment : Fragment(), OnMapReadyCallback, KodeinAware {
         }
 
         binding.buttonConfirm.setOnClickListener {
-            Timber.d("Target pos: ${googleMap.cameraPosition.target}")
             viewModel.newFishPosObservable.value = googleMap.cameraPosition.target
             findNavController().navigateUp()
         }

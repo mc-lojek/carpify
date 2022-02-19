@@ -15,12 +15,7 @@ import timber.log.Timber
 
 class FishDetailsFragment : Fragment() {
 
-
     private lateinit var binding: FragmentFishDetailsBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -32,7 +27,6 @@ class FishDetailsFragment : Fragment() {
 
 
         if (fish != null) {
-            Timber.d("znalazlem ${fish.species}")
             with(binding)
             {
                 binding.fish = fish
@@ -47,11 +41,6 @@ class FishDetailsFragment : Fragment() {
             }
 
         }
-        else
-        {
-            Timber.d("Nie znalazlem")
-        }
-
         return binding.root
     }
 }

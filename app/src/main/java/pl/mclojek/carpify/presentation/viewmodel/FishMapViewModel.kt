@@ -31,15 +31,13 @@ class FishMapViewModel(
     private val _fishStatusObservable = MutableLiveData<Resource<String>>()
     val fishStatusObservable: LiveData<Resource<String>> = _fishStatusObservable
 
+
     fun load() {
-        lake.let {
+        lake?.let {
             viewModelScope.launch() {
-                Timber.d(fishFilter.toString())
-                //Timber.d("co tu mamy ${fishRepository.getFishListForLakeFiltered(lake!!.id, fishFilter)}")
-                _fishListObservable.postValue(fishRepository.getFishListForLakeFiltered(lake!!.id, fishFilter))
-                Timber.d("foobar ${_fishListObservable.value?.size}")
+                _fishListObservable.postValue(fishRepository.getFishListForLake(lake!!.id))
+                Timber.d("ile tu masz zaciągnięte? ${fishRepository.getFishListForLake(lake!!.id).size}")
                 getAllFishFromApi()
-                Timber.d("foobar ${_fishListObservable.value?.size}")
             }
         }
     }
@@ -47,16 +45,18 @@ class FishMapViewModel(
     fun getAllFishFromApi() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
+                Timber.d("getujesz te fishe?")
                 _fishStatusObservable.postValue(Resource.Loading(""))
                 val result = fishRepository.getAllFishFromApi()
-                Timber.d("tutej to to jest ${result.message}")
+                Timber.d("ile masz resultow? ${result.data!!.size}")
                 when (result) {
                     is Resource.Success -> {
-                        result.data!!.forEach {
+                        result.data.forEach {
+                            Timber.d("Wrzucam do bazy")
                             AppDatabase.getInstance().fishDao().insertFish(it)
-                            Timber.d("insertuje")
                         }
                         _fishStatusObservable.postValue(Resource.Success(""))
+                        _fishListObservable.postValue(result.data!!)
                     }
                     is Resource.Error -> {
                         _fishStatusObservable.postValue(

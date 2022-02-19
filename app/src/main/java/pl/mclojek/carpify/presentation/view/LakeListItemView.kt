@@ -26,7 +26,6 @@ class LakeListItemView(context: Context, attrs: AttributeSet? = null) :
     }
 
     fun bind(lake: Lake) {
-        Timber.d("lake: ${lake.name}")
         binding.lake = lake
         //lake.getBounds().center
     }

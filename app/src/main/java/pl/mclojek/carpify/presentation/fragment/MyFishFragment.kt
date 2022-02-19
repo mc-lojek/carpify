@@ -55,8 +55,6 @@ class MyFishFragment : Fragment(), KodeinAware {
 
     private fun loadData() {
         viewModel.fishListObservable.observeForever {
-            Timber.d("wywoluje sie observer ${viewModel.fishFilter.weightFrom} - ${viewModel.fishFilter.weightTo}")
-            Timber.d("ile rekordow: ${it.size}")
             if(it.size > 0) {
                 adapter.changeList(it)
             }
@@ -65,7 +63,6 @@ class MyFishFragment : Fragment(), KodeinAware {
     }
 
     private fun onClick(fish: Fish) {
-        Timber.d("to kliknales: ${fish.species}")
         val bundle = Bundle()
         bundle.putParcelable("fish", fish)
         findNavController().navigate(R.id.fish_details_fragment, bundle)
