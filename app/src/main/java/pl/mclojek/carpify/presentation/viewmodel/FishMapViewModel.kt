@@ -1,9 +1,6 @@
 package pl.mclojek.carpify.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,52 +19,30 @@ class FishMapViewModel(
 
     var lake: Lake? = null
     var fishFilter: FishFilter = FishFilter()
-    var newFishPos: LatLng? = null
     val newFishPosObservable: MutableLiveData<LatLng?> = MutableLiveData()
 
-    private val _fishListObservable = MutableLiveData<List<Fish>>()
-    val fishListObservable: LiveData<List<Fish>> = _fishListObservable
-
-    private val _fishStatusObservable = MutableLiveData<Resource<String>>()
-    val fishStatusObservable: LiveData<Resource<String>> = _fishStatusObservable
-
+    private val fishListMerger =  MediatorLiveData<List<Fish>>()
+    val fishListObservable = fishListMerger as LiveData<List<Fish>>
+    private lateinit var currentFishListObservable: LiveData<List<Fish>>
 
     fun load() {
         lake?.let {
             viewModelScope.launch() {
-                _fishListObservable.postValue(fishRepository.getFishListForLake(lake!!.id))
-                Timber.d("ile tu masz zaciągnięte? ${fishRepository.getFishListForLake(lake!!.id).size}")
-                getAllFishFromApi()
+                currentFishListObservable = fishRepository.getFishListForLake(lake!!.id)
+                fishListMerger.addSource(currentFishListObservable) {
+                    fishListMerger.value = it
+                }
             }
         }
     }
 
-    fun getAllFishFromApi() {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                Timber.d("getujesz te fishe?")
-                _fishStatusObservable.postValue(Resource.Loading(""))
-                val result = fishRepository.getAllFishFromApi()
-                Timber.d("ile masz resultow? ${result.data!!.size}")
-                when (result) {
-                    is Resource.Success -> {
-                        result.data.forEach {
-                            Timber.d("Wrzucam do bazy")
-                            AppDatabase.getInstance().fishDao().insertFish(it)
-                        }
-                        _fishStatusObservable.postValue(Resource.Success(""))
-                        _fishListObservable.postValue(result.data!!)
-                    }
-                    is Resource.Error -> {
-                        _fishStatusObservable.postValue(
-                            Resource.Error(
-                                result.message ?: "An error occured"
-                            )
-                        )
-                    }
-                    is Resource.Loading -> {
-                        _fishStatusObservable.postValue(Resource.Loading())
-                    }
+    fun loadFiltered() {
+        lake?.let {
+            viewModelScope.launch() {
+                fishListMerger.removeSource(currentFishListObservable)
+                currentFishListObservable = fishRepository.getFishListForLakeFiltered(lake!!.id, fishFilter)
+                fishListMerger.addSource(currentFishListObservable) {
+                    fishListMerger.value = it
                 }
             }
         }

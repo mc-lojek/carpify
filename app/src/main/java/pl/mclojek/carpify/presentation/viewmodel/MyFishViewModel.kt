@@ -28,7 +28,8 @@ class MyFishViewModel(
 
     fun load() {
         viewModelScope.launch() {
-            fishListObservable.value = fishRepository.getFishListForUserFiltered(userId, fishFilter)
+            //change it to all fish later
+            //fishListObservable = fishRepository.getFishListForLake(1)
         }
     }
 }

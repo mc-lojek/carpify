@@ -7,11 +7,7 @@ import pl.mclojek.carpify.domain.model.FishFilter
 import pl.mclojek.carpify.domain.model.Lake
 
 interface FishRepository {
-    suspend fun getFishListForLake(lakeId: Int): List<Fish>
-    suspend fun getFishListForLakeFiltered(lakeId: Int, fishFilter: FishFilter): List<Fish>
-    suspend fun getFishListForUser(userId: Int): List<Fish>
-    suspend fun getFishListForUserFiltered(userId: Int, fishFilter: FishFilter): List<Fish>
+    fun getFishListForLake(lakeId: Int): LiveData<List<Fish>>
+    fun getFishListForLakeFiltered(lakeId: Int, fishFilter: FishFilter): LiveData<List<Fish>>
     suspend fun addFish(fish: Fish): Resource<String>
-
-    suspend fun getAllFishFromApi(): Resource<List<Fish>>
 }

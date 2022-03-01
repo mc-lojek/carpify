@@ -11,6 +11,6 @@ import pl.mclojek.carpify.presentation.viewmodel.MyFishViewModel
 
 val presentationModule = Kodein.Module("PresentationModule") {
     bind() from singleton { LakesViewModel(instance()) }
-    bind() from singleton { FishMapViewModel(instance()) }
+//    bind() from singleton { FishMapViewModel(instance()) }
     bind() from singleton { MyFishViewModel(instance()) }
 }

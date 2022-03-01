@@ -11,41 +11,20 @@ import pl.mclojek.carpify.domain.model.Fish
 import pl.mclojek.carpify.domain.model.FishFilter
 import pl.mclojek.carpify.domain.repository.FishRepository
 import pl.mclojek.carpify.network.NetworkErrorHandler
-import timber.log.Timber
 
 class FishRepositoryImpl(
     private val restService: RestService
 ) : FishRepository {
-    override suspend fun getFishListForLake(lakeId: Int): List<Fish> {
-        val res = AppDatabase.getInstance().fishDao().getFishForLake(lakeId)
-        return res
-    }
 
+    override fun getFishListForLake(lakeId: Int): LiveData<List<Fish>> =
+        AppDatabase.getInstance().fishDao().getFishForLake(lakeId)
 
-    override suspend fun getFishListForLakeFiltered(lakeId: Int, fishFilter: FishFilter): List<Fish> =
-        withContext(Dispatchers.IO) {
-            AppDatabase.getInstance().fishDao().getFishForLakeFiltered(
-                lakeId,
-                fishFilter.speciesList,
-                fishFilter.timeFrom,
-                fishFilter.timeTo,
-                fishFilter.weightFrom,
-                fishFilter.weightTo,
-                fishFilter.lengthFrom,
-                fishFilter.lengthTo
-            )
-        }
-
-
-    override suspend fun getFishListForUser(userId: Int): List<Fish> =
-        AppDatabase.getInstance().fishDao().getFishForUser(userId)
-
-    override suspend fun getFishListForUserFiltered(
-        userId: Int,
+    override fun getFishListForLakeFiltered(
+        lakeId: Int,
         fishFilter: FishFilter
-    ): List<Fish> =
-        AppDatabase.getInstance().fishDao().getFishForUserFiltered(
-            userId,
+    ): LiveData<List<Fish>> =
+        AppDatabase.getInstance().fishDao().getFishForLakeFiltered(
+            lakeId,
             fishFilter.speciesList,
             fishFilter.timeFrom,
             fishFilter.timeTo,
@@ -60,15 +39,6 @@ class FishRepositoryImpl(
             AppDatabase.getInstance().fishDao().insertFish(fish)
         }
         return Resource.Success("")
-    }
-
-    override suspend fun getAllFishFromApi(): Resource<List<Fish>> {
-        return try {
-            //Resource.Success(restService.getAllFish().map { it.toDomainModel() })
-            Resource.Success(getMockFishList().map { it.toDomainModel() })
-        } catch (t: Throwable) {
-            NetworkErrorHandler.handleException(t)
-        }
     }
 
     private suspend fun getMockFishList(): List<FishDataModel> {

@@ -1,0 +1,75 @@
+{
+  "voivodeships": [
+    {
+      "id": 0,
+      "name": "dolnoslaskie",
+      "verbose_name": "Dolnośląskie"
+    },
+    {
+      "id": 1,
+      "name": "kujawsko_pomorskie",
+      "verbose_name": "Kujawsko-Pomorskie"
+    }, {
+      "id": 2,
+      "name": "lodzkie",
+      "verbose_name": "Łódzkie"
+    },
+    {
+      "id": 3,
+      "name": "lubelskie",
+      "verbose_name": "Lubelskie"
+    },
+    {
+      "id": 4,
+      "name": "lubuskie",
+      "verbose_name": "Lubuskie"
+    },
+    {
+      "id": 5,
+      "name": "malopolskie",
+      "verbose_name": "Małopolskie"
+    },{
+      "id": 6,
+      "name": "mazowieckie",
+      "verbose_name": "Mazowieckie"
+    },{
+      "id": 7,
+      "name": "podkarpackie",
+      "verbose_name": "Podkarpackie"
+    },{
+      "id": 8,
+      "name": "pomorskie",
+      "verbose_name": "Pomorskie"
+    },{
+      "id": 9,
+      "name": "slaskie",
+      "verbose_name": "Śląskie"
+    },{
+      "id": 10,
+      "name": "warminsko_mazurskie",
+      "verbose_name": "Warmińsko-Mazurskie"
+    },{
+    },{
+      "id": 11,
+      "name": "wielkopolskie",
+      "verbose_name": "Wielkopolskie"
+    },{
+      "id": 12,
+      "name": "zachodniopomorskie",
+      "verbose_name": "Zachodniopomorskie"
+    },
+    {
+      "id": 13,
+      "name": "opolskie",
+      "verbose_name": "Opolskie"
+    },{
+      "id": 14,
+      "name": "swietokrzyskie",
+      "verbose_name": "Świętokrzyskie"
+    },{
+      "id": 15,
+      "name": "podlaskie",
+      "verbose_name": "Podlaskie"
+    }
+  ]
+}

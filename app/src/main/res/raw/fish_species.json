@@ -1,0 +1,39 @@
+{
+  "species": [
+    {
+      "id": 0,
+      "name": "common_carp",
+      "verbose_name": "Karp Pełnołuski",
+      "verbose_name_multiple": "Karpie Pełnołuskie"
+    },
+    {
+      "id": 1,
+      "name": "mirron_carp",
+      "verbose_name": "Karp Królewski",
+      "verbose_name_multiple": "Karpie Królewskie"
+    },
+    {
+      "id": 2,
+      "name": "grass_carp",
+      "verbose_name": "Amur",
+      "verbose_name_multiple": "Amury"
+    },
+    {
+      "id": 3,
+      "name": "sturgeon",
+      "verbose_name": "Jesiotr",
+      "verbose_name_multiple": "Jesiotry"
+    },
+    {
+      "id": 4,
+      "name": "catfish",
+      "verbose_name": "Sum",
+      "verbose_name_multiple": "Sumy"
+    },
+    {
+      "id": 99999,
+      "name": "other",
+      "verbose_name": "Inne"
+    }
+  ]
+}

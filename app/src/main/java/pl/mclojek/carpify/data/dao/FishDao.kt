@@ -10,7 +10,7 @@ interface FishDao {
     fun getAllFish(): LiveData<List<Fish>>
 
     @Query("SELECT * FROM fish WHERE lakeId = :lakeId ")
-    suspend fun getFishForLake(lakeId: Int): List<Fish>
+    fun getFishForLake(lakeId: Int): LiveData<List<Fish>>
 
     @Query("SELECT * FROM fish WHERE lakeId = :lakeId AND species IN (:speciesList) AND datetime > :timeFrom AND datetime < :timeTo AND weight > :weightFrom AND weight < :weightTo AND size > :lengthFrom AND size < :lengthTo")
     fun getFishForLakeFiltered(
@@ -22,22 +22,7 @@ interface FishDao {
         weightTo: Float,
         lengthFrom: Int,
         lengthTo: Int
-    ): List<Fish>
-
-    @Query("SELECT * FROM fish WHERE hunterId = :userId ")
-    fun getFishForUser(userId: Int): List<Fish>
-
-    @Query("SELECT * FROM fish WHERE hunterId = :userId AND species IN (:speciesList) AND datetime > :timeFrom AND datetime < :timeTo AND weight > :weightFrom AND weight < :weightTo AND size > :lengthFrom AND size < :lengthTo")
-    fun getFishForUserFiltered(
-        userId: Int,
-        speciesList: List<String>,
-        timeFrom: Long,
-        timeTo: Long,
-        weightFrom: Float,
-        weightTo: Float,
-        lengthFrom: Int,
-        lengthTo: Int
-    ): List<Fish>
+    ): LiveData<List<Fish>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFish(fish: Fish)

@@ -28,7 +28,7 @@ class FishMapFragment : BaseMapFragment(), OnMapReadyCallback, KodeinAware {
     private lateinit var map: GoogleMap
 
     private val observer = Observer<List<Fish>> { fish ->
-        Timber.d("Czy ty cos tu widzisz? ${fish}")
+        Timber.d("Czy ty cos tu widzisz? ${fish.size}")
         if(fish != null) {
             map.clear()
             fish.forEach {
@@ -39,24 +39,6 @@ class FishMapFragment : BaseMapFragment(), OnMapReadyCallback, KodeinAware {
                 val bundle = Bundle()
                 bundle.putParcelable("fish", it.tag as Parcelable?)
                 findNavController().navigate(R.id.fish_details_fragment, bundle)
-            }
-        }
-    }
-
-    private val statusObserver = Observer<Resource<String>> {
-        when (it) {
-            is Resource.Success -> {
-                binding.progressBar.visibility = View.GONE
-                Timber.d("Sukcesik")
-            }
-            is Resource.Error -> {
-                binding.progressBar.visibility = View.GONE
-                Snackbar.make(binding.root, it.message!!, Snackbar.LENGTH_LONG).show()
-                Timber.d("Errorek")
-            }
-            is Resource.Loading -> {
-                binding.progressBar.visibility = View.VISIBLE
-                Timber.d("Ladowanko")
             }
         }
     }
@@ -87,12 +69,12 @@ class FishMapFragment : BaseMapFragment(), OnMapReadyCallback, KodeinAware {
         }
 
         viewModel.fishListObservable.observe(viewLifecycleOwner, observer)
-        viewModel.fishStatusObservable.observe(viewLifecycleOwner, statusObserver)
     }
 
     private fun setupOnClicks() {
         binding.buttonFilter.setOnClickListener {
             findNavController().navigate(R.id.filter_fish_fragment)
+            //viewModel.loadFiltered()
         }
 
         binding.buttonAddFish.setOnClickListener {

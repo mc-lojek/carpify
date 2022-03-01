@@ -6,11 +6,17 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import org.kodein.di.Copy
 import org.kodein.di.Kodein
+import org.kodein.di.android.kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.closestKodein
+import org.kodein.di.android.subKodein
 import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
+import org.kodein.di.generic.singleton
+import org.kodein.di.subKodein
 import pl.mclojek.carpify.R
 import pl.mclojek.carpify.databinding.ActivityMainBinding
 import pl.mclojek.carpify.databinding.ActivitySingleLakeBinding
@@ -21,7 +27,10 @@ import timber.log.Timber
 
 class SingleLakeActivity : AppCompatActivity(), KodeinAware {
 
-    override val kodein: Kodein by closestKodein()
+    //override val kodein: Kodein by closestKodein()
+    override val kodein: Kodein by subKodein(kodein(), copy = Copy.All) {
+        bind() from singleton { FishMapViewModel(instance()) }
+    }
     private lateinit var binding: ActivitySingleLakeBinding
     private lateinit var navController: NavController
     private val viewModel: FishMapViewModel by instance()

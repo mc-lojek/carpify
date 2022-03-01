@@ -18,8 +18,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity android:name=".presentation.activity.SingleLakeActivity"/>
-        <activity android:name=".presentation.activity.RegisterActivity" />
-        <activity android:name=".presentation.activity.LoginActivity" />
         <activity android:name=".presentation.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

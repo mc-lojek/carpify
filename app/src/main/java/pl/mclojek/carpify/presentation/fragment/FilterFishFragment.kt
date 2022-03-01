@@ -2,28 +2,24 @@ package pl.mclojek.carpify.presentation.fragment
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import androidx.core.view.allViews
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
-import okhttp3.internal.format
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 import pl.mclojek.carpify.R
 import pl.mclojek.carpify.databinding.FragmentFilterFishBinding
+import pl.mclojek.carpify.domain.dict.DictManager
 import pl.mclojek.carpify.presentation.viewmodel.FishMapViewModel
 import timber.log.Timber
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -37,11 +33,14 @@ class FilterFishFragment : Fragment(), KodeinAware {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Timber.d("${DictManager.isInitialized} zaczynam ${DictManager.species.size}")
+        DictManager.species.values.forEach { Timber.d(it.nameVerbose) }
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentFilterFishBinding.inflate(inflater, container, false)
 
@@ -59,38 +58,37 @@ class FilterFishFragment : Fragment(), KodeinAware {
         val filter = viewModel.fishFilter
         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.GERMANY)
         binding.apply {
-            if(filter.timeFrom != 0L)
+            if (filter.timeFrom != 0L)
                 dateFromEdittext.setText(sdf.format(Date(filter.timeFrom)))
             else
                 dateFromEdittext.setText("")
-            if(filter.timeTo != Long.MAX_VALUE)
+            if (filter.timeTo != Long.MAX_VALUE)
                 dateToEdittext.setText(sdf.format(Date(filter.timeTo)))
             else
                 dateToEdittext.setText("")
-            if(filter.weightFrom != 0.0f)
+            if (filter.weightFrom != 0.0f)
                 weightFromEdittext.setText(String.format("%.2f", filter.weightFrom))
             else
                 weightFromEdittext.setText("")
-            if(filter.weightTo != Float.MAX_VALUE)
+            if (filter.weightTo != Float.MAX_VALUE)
                 weightToEdittext.setText(String.format("%.2f", filter.weightTo))
             else
                 weightToEdittext.setText("")
-            if(filter.lengthFrom != 0)
+            if (filter.lengthFrom != 0)
                 lengthFromEdittext.setText(filter.lengthFrom.toString())
             else
                 lengthFromEdittext.setText("")
-            if(filter.lengthTo != Int.MAX_VALUE)
+            if (filter.lengthTo != Int.MAX_VALUE)
                 lengthToEdittext.setText(filter.lengthTo.toString())
             else
                 lengthToEdittext.setText("")
 
-            if (viewModel.fishFilter.speciesList.size >= 5)
-            {
+            if (viewModel.fishFilter.speciesList.size >= 5) {
                 chip0.isChecked = true
             } else {
                 chipsArray.forEach { chip ->
-                    viewModel.fishFilter.speciesList.forEach {species ->
-                        if(chip.text.toString() == species) {
+                    viewModel.fishFilter.speciesList.forEach { species ->
+                        if (chip.text.toString() == species) {
                             chip.isChecked = true
                         }
                     }
@@ -112,7 +110,7 @@ class FilterFishFragment : Fragment(), KodeinAware {
             context?.let { it1 ->
                 DatePickerDialog(it1, { view, year, month, dayOfMonth ->
                     binding.dateFromEdittext.setText(
-                            "${if (dayOfMonth < 0) "0" else ""}${dayOfMonth}-${if (month < 0) "0" else ""}${month + 1}-${year}"
+                        "${if (dayOfMonth < 0) "0" else ""}${dayOfMonth}-${if (month < 0) "0" else ""}${month + 1}-${year}"
                     )
                 }, year, month, day)
             }?.show()
@@ -123,7 +121,7 @@ class FilterFishFragment : Fragment(), KodeinAware {
             context?.let { it1 ->
                 DatePickerDialog(it1, { view, year, month, dayOfMonth ->
                     binding.dateToEdittext.setText(
-                            "${if (dayOfMonth < 0) "0" else ""}${dayOfMonth}-${if (month < 0) "0" else ""}${month + 1}-${year}"
+                        "${if (dayOfMonth < 0) "0" else ""}${dayOfMonth}-${if (month < 0) "0" else ""}${month + 1}-${year}"
                     )
                 }, year, month, day)
             }?.show()
@@ -178,7 +176,7 @@ class FilterFishFragment : Fragment(), KodeinAware {
                     chipsArray.filter { it.isChecked }.map { it.text.toString() }
                 }
             }
-            viewModel.load()
+            viewModel.loadFiltered()
             findNavController().navigateUp()
         }
 
@@ -205,12 +203,12 @@ class FilterFishFragment : Fragment(), KodeinAware {
 
     private fun setupChips() {
         chipsArray = arrayOf(
-                binding.chip0,
-                binding.chip1,
-                binding.chip2,
-                binding.chip3,
-                binding.chip4,
-                binding.chip5,
+            binding.chip0,
+            binding.chip1,
+            binding.chip2,
+            binding.chip3,
+            binding.chip4,
+            binding.chip5,
         )
 
         chipsArray.forEach {
