@@ -1,0 +1,57 @@
+
+Table fish as F {
+  id string [pk]
+  species fish_species
+  weight float
+  length float
+  catch_at datetime
+  catch_position_lat double
+  catch_position_lng double
+  details text
+  peg_id string
+  catcher_id string
+  created_at datetime
+}
+
+Enum fish_species {
+  COMMON_CARP
+  MIRROR_CARP
+  GRASSCARP
+  STURGEON
+  CATFISH
+  OTHER
+  
+  //imo good idea to provide all fish species and just map those which are not needed
+}
+
+Table lake as L {
+  id string [pk]
+  area float
+  
+  bounds_sw_lat double
+  bounds_sw_lng double
+  bounds_ne_lat double
+  bounds_ne_lng double
+}
+
+//users should be from oauth
+//not sure how it works yet
+Table user {
+  id string [pk]
+}
+
+Table peg as P {
+  id string [pk]
+  name string
+  position_lat double
+  position_lng double
+  surface geojson
+  lake_id string [ref: > L.id]
+}
+
+
+
+Ref: F.catcher_id > user.id
+Ref: F.peg_id > peg.id
+
+
