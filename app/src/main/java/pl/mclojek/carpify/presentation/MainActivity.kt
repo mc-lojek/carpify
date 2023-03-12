@@ -15,8 +15,10 @@ import pl.mclojek.carpify.presentation.screen.*
 import pl.mclojek.carpify.presentation.screen.ScreenRoutes.FEED_SCREEN_ROUTE
 import pl.mclojek.carpify.presentation.screen.ScreenRoutes.FORGOT_PASSWORD_SCREEN_ROUTE
 import pl.mclojek.carpify.presentation.screen.ScreenRoutes.LAKES_LIST_SCREEN_ROUTE
+import pl.mclojek.carpify.presentation.screen.ScreenRoutes.LAKES_MAP_SCREEN_ROUTE
 import pl.mclojek.carpify.presentation.screen.ScreenRoutes.LAKE_DETAILS_SCREEN_ROUTE
 import pl.mclojek.carpify.presentation.screen.ScreenRoutes.LOGIN_SCREEN_ROUTE
+import pl.mclojek.carpify.presentation.screen.ScreenRoutes.MAIN_MENU_SCREEN_ROUTE
 import pl.mclojek.carpify.presentation.screen.ScreenRoutes.REGISTER_SCREEN_ROUTE
 import pl.mclojek.carpify.presentation.theme.CarpifyTheme
 
@@ -45,7 +47,7 @@ fun Content() {
         composable(LOGIN_SCREEN_ROUTE) {
             LoginScreen(
                 navigateForward = {
-                    navController.navigate(FEED_SCREEN_ROUTE)
+                    navController.navigate(MAIN_MENU_SCREEN_ROUTE)
                 }, navigateRegister = {
                     navController.navigate(REGISTER_SCREEN_ROUTE)
                 }, navigateForgetPass = {
@@ -66,5 +68,9 @@ fun Content() {
         composable(FEED_SCREEN_ROUTE) { FeedScreen() }
         composable(LAKES_LIST_SCREEN_ROUTE) { LakesListScreen() }
         composable(LAKE_DETAILS_SCREEN_ROUTE) { LakeDetailsScreen() }
+        composable(LAKES_MAP_SCREEN_ROUTE) { LakesMapScreen() }
+        composable(MAIN_MENU_SCREEN_ROUTE) { MainMenuScreen{
+            navController.navigate(it)
+        } }
     }
 }
