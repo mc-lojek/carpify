@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun RegisterScreen(navigateBack: () -> Unit) {
+fun ForgotPasswordScreen(navigateBack: () -> Unit) {
     Button(modifier = Modifier, onClick = navigateBack) {
-        Text("Register")
+        Text("Forget")
     }
 }

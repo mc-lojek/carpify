@@ -7,5 +7,6 @@ object ScreenRoutes {
     val LAKES_LIST_SCREEN_ROUTE = "lakesList"
     val LOGIN_SCREEN_ROUTE = "login"
     val REGISTER_SCREEN_ROUTE = "register"
+    val FORGOT_PASSWORD_SCREEN_ROUTE = "forgot-password"
 
 }
