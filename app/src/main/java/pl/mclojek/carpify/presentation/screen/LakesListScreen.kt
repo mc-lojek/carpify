@@ -1,53 +1,28 @@
 package pl.mclojek.carpify.presentation.screen
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.ColorPainter
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import pl.mclojek.carpify.domain.model.Lake
-import pl.mclojek.carpify.presentation.theme.Typography
+import pl.mclojek.carpify.presentation.listitems.LakesListItem
 
 @Composable
 fun LakesListScreen() {
     LazyColumn() {
         items(items = fakeLakesList) {
-            LakesListItem(lake = it)
-        }
-    }
-}
-
-@Composable
-fun LakesListItem(lake: Lake) {
-    Card(
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth()
-            .height(128.dp),
-        elevation = CardDefaults.cardElevation(8.dp)
-    ) {
-        Row() {
-            AsyncImage(
-                model = lake.imageUrl,
-                contentDescription = null,
-                modifier = Modifier.fillMaxHeight().aspectRatio(1.0f),
-                contentScale = ContentScale.Crop,
-                placeholder = ColorPainter(color = Color.DarkGray),
+            LakesListItem(lake = it,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth()
+                    .height(128.dp)
             )
-            Column(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
-                Text(text = lake.name, style = Typography.headlineSmall)
-                Text(text = lake.description, style = Typography.bodySmall)
-            }
         }
     }
 }
@@ -72,13 +47,13 @@ val fakeLakesList = listOf(
         imageUrl = "https://karpiowymtropem.pl/wp-content/uploads/2022/09/5..-1024x768.jpg"
     ),
     Lake(
-        name = "Jezioro Miłoszewskie",
-        description = "Jeziorko z wielkimi karpiami",
+        name = "Jezioro Pieszczenko",
+        description = "Urocze leśne jeziorko :)",
         bounds = LatLngBounds(
-            LatLng(54.442059, 18.034701),
-            LatLng(54.449607, 18.048584)
+            LatLng(53.943281,18.243484),
+            LatLng(53.945352,18.249278)
         ),
-        imageUrl = "https://www.karpmax.pl/blog_pliki/772_p1030565.jpg"
+        imageUrl = "https://bookingfish.eu/wp-content/uploads/304c123a-08f3-4041-8731-da3f7b03a7c7_Easy-Resize.com_.jpg"
     ),
     Lake(
         name = "Jezioro Miłoszewskie",
