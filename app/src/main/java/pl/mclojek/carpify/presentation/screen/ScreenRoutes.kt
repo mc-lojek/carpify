@@ -2,6 +2,8 @@ package pl.mclojek.carpify.presentation.screen
 
 object ScreenRoutes {
 
+    const val BACK = "back"
+
     const val FEED_SCREEN_ROUTE = "feed"
     const val LAKE_DETAILS_SCREEN_ROUTE = "LakeDetails"
     const val LOGIN_SCREEN_ROUTE = "login"
@@ -13,4 +15,5 @@ object ScreenRoutes {
     const val LAKES_MAP_SCREEN_ROUTE = "lakesMap"
     const val MY_FISH_SCREEN_ROUTE = "myFish"
     const val FISH_MAP_SCREEN_ROUTE = "fishMap"
+    const val FISH_DETAILS_SCREEN = "fishDetails"
 }

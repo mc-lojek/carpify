@@ -12,7 +12,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import pl.mclojek.carpify.presentation.screen.*
+import pl.mclojek.carpify.presentation.screen.ScreenRoutes.BACK
 import pl.mclojek.carpify.presentation.screen.ScreenRoutes.FEED_SCREEN_ROUTE
+import pl.mclojek.carpify.presentation.screen.ScreenRoutes.FISH_DETAILS_SCREEN
 import pl.mclojek.carpify.presentation.screen.ScreenRoutes.FISH_MAP_SCREEN_ROUTE
 import pl.mclojek.carpify.presentation.screen.ScreenRoutes.FORGOT_PASSWORD_SCREEN_ROUTE
 import pl.mclojek.carpify.presentation.screen.ScreenRoutes.LAKES_LIST_SCREEN_ROUTE
@@ -58,36 +60,77 @@ fun Content() {
             )
         }
         composable(REGISTER_SCREEN_ROUTE) {
-            RegisterScreen(navigateBack = {
-                navController.navigateUp()
-            })
+            RegisterScreen {
+                if (it == BACK) {
+                    navController.navigateUp()
+                } else {
+                    navController.navigate(it)
+                }
+            }
         }
         composable(FORGOT_PASSWORD_SCREEN_ROUTE) {
-            ForgotPasswordScreen(navigateBack = {
-                navController.navigateUp()
-            })
+            ForgotPasswordScreen {
+                if (it == BACK) {
+                    navController.navigateUp()
+                } else {
+                    navController.navigate(it)
+                }
+            }
         }
         composable(FEED_SCREEN_ROUTE) { FeedScreen() }
         composable(LAKES_LIST_SCREEN_ROUTE) {
             LakesListScreen {
-                navController.navigate(it)
+                if (it == BACK) {
+                    navController.navigateUp()
+                } else {
+                    navController.navigate(it)
+                }
             }
         }
         composable(LAKE_DETAILS_SCREEN_ROUTE) { LakeDetailsScreen() }
         composable(LAKES_MAP_SCREEN_ROUTE) {
             LakesMapScreen {
-                navController.navigate(it)
+                if (it == BACK) {
+                    navController.navigateUp()
+                } else {
+                    navController.navigate(it)
+                }
             }
         }
-        composable(MY_FISH_SCREEN_ROUTE) { MyFishScreen() }
+        composable(MY_FISH_SCREEN_ROUTE) {
+            MyFishScreen {
+                if (it == BACK) {
+                    navController.navigateUp()
+                } else {
+                    navController.navigate(it)
+                }
+            }
+        }
         composable(FISH_MAP_SCREEN_ROUTE) {
             FishMapScreen {
-                navController.navigate(it)
+                if (it == BACK) {
+                    navController.navigateUp()
+                } else {
+                    navController.navigate(it)
+                }
             }
         }
         composable(MAIN_MENU_SCREEN_ROUTE) {
             MainMenuScreen {
-                navController.navigate(it)
+                if (it == BACK) {
+                    navController.navigateUp()
+                } else {
+                    navController.navigate(it)
+                }
+            }
+        }
+        composable(FISH_DETAILS_SCREEN) {
+            FishDetailsScreen {
+                if (it == BACK) {
+                    navController.navigateUp()
+                } else {
+                    navController.navigate(it)
+                }
             }
         }
     }

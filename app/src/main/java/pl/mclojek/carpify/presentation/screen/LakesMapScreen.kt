@@ -27,6 +27,7 @@ import pl.mclojek.carpify.domain.model.POLAND_BOUNDS
 import pl.mclojek.carpify.domain.model.POLAND_ZOOM
 import pl.mclojek.carpify.presentation.components.SearchField
 import pl.mclojek.carpify.presentation.listitems.LakesListItem
+import pl.mclojek.carpify.presentation.screen.ScreenRoutes.BACK
 import pl.mclojek.carpify.presentation.screen.ScreenRoutes.FISH_MAP_SCREEN_ROUTE
 import pl.mclojek.carpify.presentation.state.AppBarController
 import pl.mclojek.carpify.presentation.state.AppBarState
@@ -85,7 +86,7 @@ fun LakesMapScreen(navCallback: (String) -> Unit) {
                                 if (appBarState.value.searchingMode) {
                                     AppBarController.changeToDefaultMode(appBarState)
                                 } else {
-                                    //navCallback(NavigationConstants.BACK)
+                                    navCallback(BACK)
                                 }
                             }
                         ) {

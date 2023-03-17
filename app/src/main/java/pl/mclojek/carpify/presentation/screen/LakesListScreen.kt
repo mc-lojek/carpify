@@ -1,34 +1,107 @@
 package pl.mclojek.carpify.presentation.screen
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Send
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import pl.mclojek.carpify.domain.model.Lake
+import pl.mclojek.carpify.presentation.components.SearchField
 import pl.mclojek.carpify.presentation.listitems.LakesListItem
+import pl.mclojek.carpify.presentation.screen.ScreenRoutes.BACK
 import pl.mclojek.carpify.presentation.screen.ScreenRoutes.FISH_MAP_SCREEN_ROUTE
+import pl.mclojek.carpify.presentation.state.AppBarController
+import pl.mclojek.carpify.presentation.state.AppBarState
 
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun LakesListScreen(navCallback: (String) -> Unit) {
-    LazyColumn() {
-        items(items = fakeLakesList) {
-            LakesListItem(
-                lake = it,
-                modifier = Modifier
-                    .padding(8.dp)
-                    .fillMaxWidth()
-                    .height(128.dp)
-            ) {
-                navCallback(FISH_MAP_SCREEN_ROUTE)
+
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    val appBarState = remember {
+        mutableStateOf(AppBarState(title = "<Lake>"))
+    }
+
+    Scaffold(
+        modifier = Modifier,
+        topBar = {
+            TopAppBar(
+                modifier = Modifier,
+                title = {
+                    Text(text = appBarState.value.title)
+                },
+                navigationIcon = {
+                    AnimatedVisibility(visible = !appBarState.value.searchingMode) {
+                        IconButton(
+                            onClick = {
+                                if (appBarState.value.searchingMode) {
+                                    AppBarController.changeToDefaultMode(appBarState)
+                                } else {
+                                    navCallback(BACK)
+                                }
+                            }
+                        ) {
+                            Icon(Icons.Filled.ArrowBack, null)
+                        }
+                    }
+                },
+                actions = {
+                    AnimatedVisibility(
+                        visible = appBarState.value.searchingMode
+                    ) {
+                        SearchField(
+                            searchText = appBarState.value.searchText,
+                            keyboardController = keyboardController,
+                            onHideClicked = { AppBarController.changeToDefaultMode(appBarState) }
+                        ) { AppBarController.updateSearchText(appBarState, it) }
+                    }
+                    IconButton(
+                        onClick = { AppBarController.changeToSearchMode(appBarState) }) {
+                        Icon(Icons.Filled.Search, null)
+                    }
+                    IconButton(
+                        onClick = { /*TODO*/ }) {
+                        Icon(Icons.Filled.Send, null)
+                    }
+                    IconButton(
+                        onClick = { /*TODO*/ }) {
+                        Icon(Icons.Filled.MoreVert, null)
+                    }
+                },
+            )
+        }, content = { padding ->
+            LazyColumn(Modifier.padding(padding)) {
+                items(items = fakeLakesList) {
+                    LakesListItem(
+                        lake = it,
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .fillMaxWidth()
+                            .height(128.dp)
+                    ) {
+                        navCallback(FISH_MAP_SCREEN_ROUTE)
+                    }
+                }
             }
         }
-    }
+    )
 }
 
 val fakeLakesList = listOf(

@@ -23,10 +23,10 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.maps.android.compose.*
 import kotlinx.coroutines.launch
 import pl.mclojek.carpify.domain.model.Fish
-import pl.mclojek.carpify.domain.model.Lake
-import pl.mclojek.carpify.domain.model.POLAND_ZOOM
 import pl.mclojek.carpify.presentation.components.SearchField
 import pl.mclojek.carpify.presentation.listitems.FishListItem
+import pl.mclojek.carpify.presentation.screen.ScreenRoutes.BACK
+import pl.mclojek.carpify.presentation.screen.ScreenRoutes.FISH_DETAILS_SCREEN
 import pl.mclojek.carpify.presentation.state.AppBarController
 import pl.mclojek.carpify.presentation.state.AppBarState
 
@@ -97,7 +97,7 @@ fun FishMapScreen(navCallback: (String) -> Unit) {
                                 if (appBarState.value.searchingMode) {
                                     AppBarController.changeToDefaultMode(appBarState)
                                 } else {
-                                    //navCallback(NavigationConstants.BACK)
+                                    navCallback(BACK)
                                 }
                             }
                         ) {
@@ -166,10 +166,10 @@ fun FishMapScreen(navCallback: (String) -> Unit) {
                     contentPadding = PaddingValues(horizontal = 32.dp),
                     pageSize = PageSize.Fill
                 ) { page ->
-                    FishListItem(fish = fakeFishList[page])
+                    FishListItem(fish = fakeFishList[page]) {
+                        navCallback(FISH_DETAILS_SCREEN)
+                    }
                 }
             }
         })
-
-
 }
