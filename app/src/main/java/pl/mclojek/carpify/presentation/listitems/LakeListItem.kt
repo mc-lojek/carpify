@@ -3,6 +3,7 @@ package pl.mclojek.carpify.presentation.listitems
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,9 +15,11 @@ import coil.compose.AsyncImage
 import pl.mclojek.carpify.domain.model.Lake
 import pl.mclojek.carpify.presentation.theme.Typography
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LakesListItem(lake: Lake, modifier: Modifier = Modifier) {
+fun LakesListItem(lake: Lake, modifier: Modifier = Modifier, onClick: (Lake) -> Unit) {
     Card(
+        onClick = { onClick(lake) },
         modifier = modifier,
         elevation = CardDefaults.cardElevation(8.dp)
     ) {

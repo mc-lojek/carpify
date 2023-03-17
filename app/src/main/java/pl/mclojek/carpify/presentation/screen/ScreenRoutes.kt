@@ -11,4 +11,6 @@ object ScreenRoutes {
     const val MAIN_MENU_SCREEN_ROUTE = "mainMenu"
     const val LAKES_LIST_SCREEN_ROUTE = "lakesList"
     const val LAKES_MAP_SCREEN_ROUTE = "lakesMap"
+    const val MY_FISH_SCREEN_ROUTE = "myFish"
+    const val FISH_MAP_SCREEN_ROUTE = "fishMap"
 }

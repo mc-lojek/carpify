@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import pl.mclojek.carpify.presentation.screen.ScreenRoutes.LAKES_LIST_SCREEN_ROUTE
 import pl.mclojek.carpify.presentation.screen.ScreenRoutes.LAKES_MAP_SCREEN_ROUTE
+import pl.mclojek.carpify.presentation.screen.ScreenRoutes.MY_FISH_SCREEN_ROUTE
 
 @Composable
 fun MainMenuScreen(
@@ -17,6 +18,9 @@ fun MainMenuScreen(
         }
         Button(onClick = { navCallback(LAKES_MAP_SCREEN_ROUTE) }) {
             Text("Lakes Map")
+        }
+        Button(onClick = { navCallback(MY_FISH_SCREEN_ROUTE) }) {
+            Text("My fish")
         }
     }
 }

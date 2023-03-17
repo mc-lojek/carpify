@@ -22,21 +22,20 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.maps.android.compose.*
 import kotlinx.coroutines.launch
+import pl.mclojek.carpify.domain.model.Fish
 import pl.mclojek.carpify.domain.model.Lake
-import pl.mclojek.carpify.domain.model.POLAND_BOUNDS
 import pl.mclojek.carpify.domain.model.POLAND_ZOOM
 import pl.mclojek.carpify.presentation.components.SearchField
-import pl.mclojek.carpify.presentation.listitems.LakesListItem
-import pl.mclojek.carpify.presentation.screen.ScreenRoutes.FISH_MAP_SCREEN_ROUTE
+import pl.mclojek.carpify.presentation.listitems.FishListItem
 import pl.mclojek.carpify.presentation.state.AppBarController
 import pl.mclojek.carpify.presentation.state.AppBarState
-import java.time.LocalDate
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class,
+@OptIn(
+    ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class,
     ExperimentalMaterial3Api::class
 )
 @Composable
-fun LakesMapScreen(navCallback: (String) -> Unit) {
+fun FishMapScreen(navCallback: (String) -> Unit) {
 
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
@@ -44,13 +43,26 @@ fun LakesMapScreen(navCallback: (String) -> Unit) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val appBarState = remember {
-        mutableStateOf(AppBarState(title = "Łowiska"))
+        mutableStateOf(AppBarState(title = "<Lake>"))
     }
+
+    val mapUiSettings = MapUiSettings(
+        compassEnabled = true,
+        indoorLevelPickerEnabled = false,
+        mapToolbarEnabled = false,
+        myLocationButtonEnabled = false,
+        rotationGesturesEnabled = false,
+        scrollGesturesEnabled = true,
+        scrollGesturesEnabledDuringRotateOrZoom = true,
+        tiltGesturesEnabled = true,
+        zoomControlsEnabled = false,
+        zoomGesturesEnabled = true
+    )
 
     val cameraPositionState: CameraPositionState = rememberCameraPositionState(init = {
         position = CameraPosition(
-            POLAND_BOUNDS.center,
-            POLAND_ZOOM,
+            fakeFishList.first().catchPosition,
+            16f,
             0f,
             0f
         )
@@ -60,8 +72,8 @@ fun LakesMapScreen(navCallback: (String) -> Unit) {
         cameraPositionState.animate(
             update = CameraUpdateFactory.newCameraPosition(
                 CameraPosition(
-                    fakeLakesList[pagerState.settledPage].bounds.center,
-                    10f,
+                    fakeFishList[pagerState.settledPage].catchPosition,
+                    16f,
                     0f,
                     0f
                 )
@@ -117,20 +129,26 @@ fun LakesMapScreen(navCallback: (String) -> Unit) {
                     }
                 },
             )
-        }, content = {
-            Box(modifier = Modifier.padding(it).fillMaxSize()) {
+        }, content = { padding ->
+            Box(
+                modifier = Modifier
+                    .padding(padding)
+                    .fillMaxSize()
+            ) {
                 GoogleMap(
                     modifier = Modifier.fillMaxSize(),
-                    cameraPositionState = cameraPositionState
+                    cameraPositionState = cameraPositionState,
+                    uiSettings = mapUiSettings,
+                    properties = MapProperties(mapType = MapType.SATELLITE)
                 ) {
-                    fakeLakesList.forEach {
+                    fakeFishList.forEach {
                         Marker(
-                            state = MarkerState(it.bounds.center),
-                            title = it.name,
+                            state = MarkerState(it.catchPosition),
+                            title = "${it.species} + ${it.weight} kg",
                             tag = it,
                             onClick = { marker ->
                                 coroutineScope.launch {
-                                    pagerState.scrollToPage(fakeLakesList.indexOf(marker.tag as Lake))
+                                    pagerState.scrollToPage(fakeFishList.indexOf(marker.tag as Fish))
                                 }
                                 false
                             }
@@ -143,19 +161,12 @@ fun LakesMapScreen(navCallback: (String) -> Unit) {
                         .fillMaxWidth()
                         .padding(vertical = 32.dp),
                     state = pagerState,
-                    pageCount = fakeLakesList.size,
+                    pageCount = fakeFishList.size,
                     beyondBoundsPageCount = 1,
                     contentPadding = PaddingValues(horizontal = 32.dp),
                     pageSize = PageSize.Fill
                 ) { page ->
-                    LakesListItem(
-                        lake = fakeLakesList[page],
-                        modifier = Modifier
-                            .height(128.dp)
-                            .padding(horizontal = 16.dp)
-                    ) {
-                        navCallback(FISH_MAP_SCREEN_ROUTE)
-                    }
+                    FishListItem(fish = fakeFishList[page])
                 }
             }
         })
