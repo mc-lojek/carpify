@@ -5,17 +5,27 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import pl.mclojek.carpify.presentation.screen.destinations.ForgotPasswordScreenDestination
+import pl.mclojek.carpify.presentation.screen.destinations.MainMenuScreenDestination
+import pl.mclojek.carpify.presentation.screen.destinations.RegisterScreenDestination
 
 @Composable
-fun LoginScreen(navigateForward: () -> Unit, navigateRegister: () -> Unit, navigateForgetPass: () -> Unit, ) {
+@Destination(start = true)
+fun LoginScreen(
+    navigator: DestinationsNavigator
+) {
     Column() {
-        Button(modifier = Modifier, onClick = navigateForward) {
+        Button(modifier = Modifier, onClick = { navigator.navigate(MainMenuScreenDestination()) }) {
             Text("Login")
         }
-        Button(modifier = Modifier, onClick = navigateRegister) {
+        Button(modifier = Modifier, onClick = { navigator.navigate(RegisterScreenDestination()) }) {
             Text("Register")
         }
-        Button(modifier = Modifier, onClick = navigateForgetPass) {
+        Button(
+            modifier = Modifier,
+            onClick = { navigator.navigate(ForgotPasswordScreenDestination()) }) {
             Text("Forget")
         }
     }

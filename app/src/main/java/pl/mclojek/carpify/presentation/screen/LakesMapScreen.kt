@@ -21,23 +21,26 @@ import androidx.compose.ui.unit.dp
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.maps.android.compose.*
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
 import pl.mclojek.carpify.domain.model.Lake
 import pl.mclojek.carpify.domain.model.POLAND_BOUNDS
 import pl.mclojek.carpify.domain.model.POLAND_ZOOM
+import pl.mclojek.carpify.domain.model.fakeLakesList
 import pl.mclojek.carpify.presentation.components.SearchField
 import pl.mclojek.carpify.presentation.listitems.LakesListItem
-import pl.mclojek.carpify.presentation.screen.ScreenRoutes.BACK
-import pl.mclojek.carpify.presentation.screen.ScreenRoutes.FISH_MAP_SCREEN_ROUTE
+import pl.mclojek.carpify.presentation.screen.destinations.FishMapScreenDestination
 import pl.mclojek.carpify.presentation.state.AppBarController
 import pl.mclojek.carpify.presentation.state.AppBarState
-import java.time.LocalDate
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class,
+@OptIn(
+    ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class,
     ExperimentalMaterial3Api::class
 )
 @Composable
-fun LakesMapScreen(navCallback: (String) -> Unit) {
+@Destination
+fun LakesMapScreen(navigator: DestinationsNavigator) {
 
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
@@ -86,7 +89,7 @@ fun LakesMapScreen(navCallback: (String) -> Unit) {
                                 if (appBarState.value.searchingMode) {
                                     AppBarController.changeToDefaultMode(appBarState)
                                 } else {
-                                    navCallback(BACK)
+
                                 }
                             }
                         ) {
@@ -119,7 +122,9 @@ fun LakesMapScreen(navCallback: (String) -> Unit) {
                 },
             )
         }, content = {
-            Box(modifier = Modifier.padding(it).fillMaxSize()) {
+            Box(modifier = Modifier
+                .padding(it)
+                .fillMaxSize()) {
                 GoogleMap(
                     modifier = Modifier.fillMaxSize(),
                     cameraPositionState = cameraPositionState
@@ -155,7 +160,7 @@ fun LakesMapScreen(navCallback: (String) -> Unit) {
                             .height(128.dp)
                             .padding(horizontal = 16.dp)
                     ) {
-                        navCallback(FISH_MAP_SCREEN_ROUTE)
+                        navigator.navigate(FishMapScreenDestination(it.id))
                     }
                 }
             }

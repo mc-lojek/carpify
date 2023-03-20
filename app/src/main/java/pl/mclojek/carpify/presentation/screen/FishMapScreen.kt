@@ -1,6 +1,7 @@
 package pl.mclojek.carpify.presentation.screen
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
@@ -16,26 +17,47 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.maps.android.compose.*
+import com.ramcosta.composedestinations.annotation.Destination
+import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.launch
+import pl.mclojek.carpify.R
 import pl.mclojek.carpify.domain.model.Fish
+import pl.mclojek.carpify.domain.model.fakeLakesList
+import pl.mclojek.carpify.presentation.bitmapDescriptorFromVector
 import pl.mclojek.carpify.presentation.components.SearchField
 import pl.mclojek.carpify.presentation.listitems.FishListItem
-import pl.mclojek.carpify.presentation.screen.ScreenRoutes.BACK
-import pl.mclojek.carpify.presentation.screen.ScreenRoutes.FISH_DETAILS_SCREEN
+import pl.mclojek.carpify.presentation.screen.destinations.FishDetailsScreenDestination
 import pl.mclojek.carpify.presentation.state.AppBarController
 import pl.mclojek.carpify.presentation.state.AppBarState
+import pl.mclojek.carpify.presentation.viewmodel.FishMapViewModel
 
 @OptIn(
     ExperimentalFoundationApi::class, ExperimentalComposeUiApi::class,
     ExperimentalMaterial3Api::class
 )
 @Composable
-fun FishMapScreen(navCallback: (String) -> Unit) {
+@Destination
+fun FishMapScreen(
+    navigator: DestinationsNavigator,
+    viewModel: FishMapViewModel = hiltViewModel(),
+    lakeId: String,
+) {
+
+    LaunchedEffect(true) {
+        viewModel.load(lakeId)
+    }
+
+    val state = viewModel.state
+
+    val lake = fakeLakesList.first { it.id == lakeId }
 
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
@@ -43,8 +65,18 @@ fun FishMapScreen(navCallback: (String) -> Unit) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val appBarState = remember {
-        mutableStateOf(AppBarState(title = "<Lake>"))
+        mutableStateOf(AppBarState(title = lake.name))
     }
+
+    val infiniteTransition = rememberInfiniteTransition()
+    val anchor by infiniteTransition.animateFloat(
+        initialValue = 1.0f,
+        targetValue = 1.5f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(500, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        )
+    )
 
     val mapUiSettings = MapUiSettings(
         compassEnabled = true,
@@ -61,26 +93,12 @@ fun FishMapScreen(navCallback: (String) -> Unit) {
 
     val cameraPositionState: CameraPositionState = rememberCameraPositionState(init = {
         position = CameraPosition(
-            fakeFishList.first().catchPosition,
+            lake.bounds.center,
             16f,
             0f,
             0f
         )
     })
-
-    LaunchedEffect(pagerState.settledPage) {
-        cameraPositionState.animate(
-            update = CameraUpdateFactory.newCameraPosition(
-                CameraPosition(
-                    fakeFishList[pagerState.settledPage].catchPosition,
-                    16f,
-                    0f,
-                    0f
-                )
-            ),
-            durationMs = 1000
-        )
-    }
 
     Scaffold(
         modifier = Modifier,
@@ -97,7 +115,7 @@ fun FishMapScreen(navCallback: (String) -> Unit) {
                                 if (appBarState.value.searchingMode) {
                                     AppBarController.changeToDefaultMode(appBarState)
                                 } else {
-                                    navCallback(BACK)
+                                    navigator.navigateUp()
                                 }
                             }
                         ) {
@@ -141,16 +159,18 @@ fun FishMapScreen(navCallback: (String) -> Unit) {
                     uiSettings = mapUiSettings,
                     properties = MapProperties(mapType = MapType.SATELLITE)
                 ) {
-                    fakeFishList.forEach {
+                    state.fishList.forEachIndexed { index, item ->
                         Marker(
-                            state = MarkerState(it.catchPosition),
-                            title = "${it.species} + ${it.weight} kg",
-                            tag = it,
+                            icon = bitmapDescriptorFromVector(LocalContext.current, R.drawable.fish),
+                            anchor = if(pagerState.currentPage == index) Offset(0.5f, anchor) else Offset(0.5f, 1f),
+                            state = MarkerState(item.catchPosition),
+                            title = "${item.species} + ${item.weight} kg",
+                            tag = item,
                             onClick = { marker ->
                                 coroutineScope.launch {
-                                    pagerState.scrollToPage(fakeFishList.indexOf(marker.tag as Fish))
+                                    pagerState.scrollToPage(state.fishList.indexOf(marker.tag as Fish))
                                 }
-                                false
+                                true
                             }
                         )
                     }
@@ -161,13 +181,13 @@ fun FishMapScreen(navCallback: (String) -> Unit) {
                         .fillMaxWidth()
                         .padding(vertical = 32.dp),
                     state = pagerState,
-                    pageCount = fakeFishList.size,
+                    pageCount = state.fishList.size,
                     beyondBoundsPageCount = 1,
                     contentPadding = PaddingValues(horizontal = 32.dp),
                     pageSize = PageSize.Fill
                 ) { page ->
-                    FishListItem(fish = fakeFishList[page]) {
-                        navCallback(FISH_DETAILS_SCREEN)
+                    FishListItem(fish = state.fishList[page]) {
+                        navigator.navigate(FishDetailsScreenDestination(it.id))
                     }
                 }
             }
