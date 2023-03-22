@@ -18,11 +18,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import pl.mclojek.carpify.R
 import pl.mclojek.carpify.domain.model.Lake
 import pl.mclojek.carpify.domain.model.fakeLakesList
 import pl.mclojek.carpify.presentation.components.SearchField
@@ -41,7 +43,7 @@ fun LakesListScreen(navigator: DestinationsNavigator) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val appBarState = remember {
-        mutableStateOf(AppBarState(title = "<Lake>"))
+        mutableStateOf(AppBarState())
     }
 
     Scaffold(
@@ -50,7 +52,7 @@ fun LakesListScreen(navigator: DestinationsNavigator) {
             TopAppBar(
                 modifier = Modifier,
                 title = {
-                    Text(text = appBarState.value.title)
+                    Text(text = stringResource(R.string.lakes))
                 },
                 navigationIcon = {
                     AnimatedVisibility(visible = !appBarState.value.searchingMode) {
