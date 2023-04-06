@@ -11,7 +11,7 @@ val POLAND_BOUNDS = LatLngBounds(
 
 val POLAND_ZOOM = 5.7f
 
-val fakeFishList = listOf(
+val fakeFishList = mutableListOf(
     Fish(
         "1",
         "Common carp",

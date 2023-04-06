@@ -2,7 +2,9 @@ package pl.mclojek.carpify.presentation.screen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
+import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
@@ -18,12 +20,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -175,19 +178,38 @@ fun FishMapScreen(
                         )
                     }
                 }
-                HorizontalPager(
+                AnimatedVisibility(
+                    visible = !state.isLoading,
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
-                        .fillMaxWidth()
-                        .padding(vertical = 32.dp),
-                    state = pagerState,
-                    pageCount = state.fishList.size,
-                    beyondBoundsPageCount = 1,
-                    contentPadding = PaddingValues(horizontal = 32.dp),
-                    pageSize = PageSize.Fill
-                ) { page ->
-                    FishListItem(fish = state.fishList[page]) {
-                        navigator.navigate(FishDetailsScreenDestination(it.id))
+                ) {
+                    HorizontalPager(
+                        modifier = Modifier
+                            .align(Alignment.BottomCenter)
+                            .fillMaxWidth()
+                            .padding(vertical = 32.dp),
+                        state = pagerState,
+                        pageCount = state.fishList.size,
+                        beyondBoundsPageCount = 1,
+                        contentPadding = PaddingValues(horizontal = 32.dp),
+                        pageSize = PageSize.Fill
+                    ) { page ->
+                        FishListItem(fish = state.fishList[page]) {
+                            navigator.navigate(FishDetailsScreenDestination(it.id))
+                        }
+                    }
+                }
+                AnimatedVisibility(
+                    modifier = Modifier.align(Alignment.Center),
+                    visible = state.isLoading,
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(color = Color.White.copy(alpha = 0.5f)),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator(modifier = Modifier)
                     }
                 }
             }
