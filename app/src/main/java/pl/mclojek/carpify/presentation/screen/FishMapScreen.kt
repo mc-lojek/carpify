@@ -2,7 +2,6 @@ package pl.mclojek.carpify.presentation.screen
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
-import androidx.compose.animation.shrinkOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -10,10 +9,10 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -26,7 +25,6 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.*
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -37,6 +35,7 @@ import pl.mclojek.carpify.domain.model.fakeLakesList
 import pl.mclojek.carpify.presentation.bitmapDescriptorFromVector
 import pl.mclojek.carpify.presentation.components.SearchField
 import pl.mclojek.carpify.presentation.listitems.FishListItem
+import pl.mclojek.carpify.presentation.screen.destinations.AddFishScreenDestination
 import pl.mclojek.carpify.presentation.screen.destinations.FishDetailsScreenDestination
 import pl.mclojek.carpify.presentation.state.AppBarController
 import pl.mclojek.carpify.presentation.state.AppBarState
@@ -141,8 +140,8 @@ fun FishMapScreen(
                         Icon(Icons.Filled.Search, null)
                     }
                     IconButton(
-                        onClick = { /*TODO*/ }) {
-                        Icon(Icons.Filled.Send, null)
+                        onClick = { navigator.navigate(AddFishScreenDestination) }) {
+                        Icon(Icons.Filled.AddCircle, null)
                     }
                     IconButton(
                         onClick = { /*TODO*/ }) {
