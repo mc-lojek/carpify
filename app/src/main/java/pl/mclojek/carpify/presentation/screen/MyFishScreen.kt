@@ -17,18 +17,15 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import com.google.android.gms.maps.model.LatLng
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.mclojek.carpify.R
-import pl.mclojek.carpify.domain.model.Fish
 import pl.mclojek.carpify.domain.model.fakeFishList
 import pl.mclojek.carpify.presentation.components.SearchField
 import pl.mclojek.carpify.presentation.listitems.FishListItem
 import pl.mclojek.carpify.presentation.screen.destinations.FishDetailsScreenDestination
 import pl.mclojek.carpify.presentation.state.AppBarController
 import pl.mclojek.carpify.presentation.state.AppBarState
-import java.time.ZonedDateTime
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable

@@ -33,9 +33,11 @@ fun LakesListItem(lake: Lake, modifier: Modifier = Modifier, onClick: (Lake) -> 
                 contentScale = ContentScale.Crop,
                 placeholder = ColorPainter(color = Color.DarkGray),
             )
-            Column(modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            ) {
                 Text(text = lake.name, style = Typography.headlineSmall)
                 Text(text = lake.description, style = Typography.bodySmall)
             }

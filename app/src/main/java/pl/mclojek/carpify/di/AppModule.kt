@@ -11,8 +11,8 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-@Singleton
-@Provides
-fun provideFishRepository(): FishRepository = FishRepositoryImpl()
+    @Singleton
+    @Provides
+    fun provideFishRepository(): FishRepository = FishRepositoryImpl()
 
 }

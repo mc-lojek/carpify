@@ -6,9 +6,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import pl.mclojek.carpify.presentation.screen.ScreenRoutes.LAKES_LIST_SCREEN_ROUTE
-import pl.mclojek.carpify.presentation.screen.ScreenRoutes.LAKES_MAP_SCREEN_ROUTE
-import pl.mclojek.carpify.presentation.screen.ScreenRoutes.MY_FISH_SCREEN_ROUTE
 import pl.mclojek.carpify.presentation.screen.destinations.LakesListScreenDestination
 import pl.mclojek.carpify.presentation.screen.destinations.LakesMapScreenDestination
 import pl.mclojek.carpify.presentation.screen.destinations.MyFishScreenDestination

@@ -6,7 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
-import pl.mclojek.carpify.presentation.screen.ScreenRoutes.BACK
 
 @Composable
 @Destination

@@ -122,9 +122,11 @@ fun LakesMapScreen(navigator: DestinationsNavigator) {
                 },
             )
         }, content = {
-            Box(modifier = Modifier
-                .padding(it)
-                .fillMaxSize()) {
+            Box(
+                modifier = Modifier
+                    .padding(it)
+                    .fillMaxSize()
+            ) {
                 GoogleMap(
                     modifier = Modifier.fillMaxSize(),
                     cameraPositionState = cameraPositionState

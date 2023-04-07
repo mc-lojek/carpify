@@ -196,7 +196,7 @@ val fakeFishList = mutableListOf(
 
 val fakeLakesList = listOf(
     Lake(
-        id= "1",
+        id = "1",
         name = "Jezioro Miłoszewskie",
         description = "Jeziorko z wielkimi karpiami",
         bounds = LatLngBounds(
@@ -206,27 +206,27 @@ val fakeLakesList = listOf(
         imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkuApOFqn3yqGfWeQADKNxDsLLL0vInVmkUA&usqp=CAU"
     ),
     Lake(
-        id= "2",
+        id = "2",
         name = "Jezioro Krążno",
         description = "Polska Gigantica",
         bounds = LatLngBounds(
-            LatLng(54.096865,17.605816),
-            LatLng(54.101552,17.613820)
+            LatLng(54.096865, 17.605816),
+            LatLng(54.101552, 17.613820)
         ),
         imageUrl = "https://karpiowymtropem.pl/wp-content/uploads/2022/09/5..-1024x768.jpg"
     ),
     Lake(
-        id= "3",
+        id = "3",
         name = "Jezioro Pieszczenko",
         description = "Urocze leśne jeziorko :)",
         bounds = LatLngBounds(
-            LatLng(53.943281,18.243484),
-            LatLng(53.945352,18.249278)
+            LatLng(53.943281, 18.243484),
+            LatLng(53.945352, 18.249278)
         ),
         imageUrl = "https://bookingfish.eu/wp-content/uploads/304c123a-08f3-4041-8731-da3f7b03a7c7_Easy-Resize.com_.jpg"
     ),
     Lake(
-        id= "4",
+        id = "4",
         name = "Łowisko Brzeżonko",
         description = "Klubowa woda niedaleko trójmiasta",
         bounds = LatLngBounds(
@@ -236,7 +236,7 @@ val fakeLakesList = listOf(
         imageUrl = "https://scontent-waw1-1.xx.fbcdn.net/v/t39.30808-6/302433835_491012646363585_1319400280667307609_n.png?_nc_cat=104&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=DHYIfO0ZlrMAX-z_M7N&_nc_ht=scontent-waw1-1.xx&oh=00_AfB5WP9EK0yl8U-xzUvfXGkV5Lfq2CF7zJS6exEvXQ5e5g&oe=6418B3BE"
     ),
     Lake(
-        id= "5",
+        id = "5",
         name = "Łowisko Pogalewo",
         description = "Fajne łowisko z domkami",
         bounds = LatLngBounds(
@@ -246,7 +246,7 @@ val fakeLakesList = listOf(
         imageUrl = "https://i.ytimg.com/vi/BIo9n4gJkuI/maxresdefault.jpg"
     ),
     Lake(
-        id= "6",
+        id = "6",
         name = "Łowisko Kłodzionko",
         description = "Fajna sportowa woda pod feederka",
         bounds = LatLngBounds(

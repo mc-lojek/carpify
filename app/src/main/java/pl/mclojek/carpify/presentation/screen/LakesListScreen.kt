@@ -20,17 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import pl.mclojek.carpify.R
-import pl.mclojek.carpify.domain.model.Lake
 import pl.mclojek.carpify.domain.model.fakeLakesList
 import pl.mclojek.carpify.presentation.components.SearchField
 import pl.mclojek.carpify.presentation.listitems.LakesListItem
-import pl.mclojek.carpify.presentation.screen.ScreenRoutes.BACK
-import pl.mclojek.carpify.presentation.screen.ScreenRoutes.FISH_MAP_SCREEN_ROUTE
 import pl.mclojek.carpify.presentation.screen.destinations.FishMapScreenDestination
 import pl.mclojek.carpify.presentation.state.AppBarController
 import pl.mclojek.carpify.presentation.state.AppBarState

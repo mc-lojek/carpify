@@ -7,7 +7,7 @@ import pl.mclojek.carpify.domain.model.fakeFishList
 import pl.mclojek.carpify.domain.repository.FishRepository
 import pl.mclojek.carpify.domain.util.Resource
 
-class FishRepositoryImpl: FishRepository {
+class FishRepositoryImpl : FishRepository {
 
     override suspend fun getFishForLake(lakeId: String): Flow<Resource<List<Fish>>> {
         return flow {

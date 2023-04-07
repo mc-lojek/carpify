@@ -163,8 +163,14 @@ fun FishMapScreen(
                 ) {
                     state.fishList.forEachIndexed { index, item ->
                         Marker(
-                            icon = bitmapDescriptorFromVector(LocalContext.current, R.drawable.fish),
-                            anchor = if(pagerState.currentPage == index) Offset(0.5f, anchor) else Offset(0.5f, 1f),
+                            icon = bitmapDescriptorFromVector(
+                                LocalContext.current,
+                                R.drawable.fish
+                            ),
+                            anchor = if (pagerState.currentPage == index) Offset(
+                                0.5f,
+                                anchor
+                            ) else Offset(0.5f, 1f),
                             state = MarkerState(item.catchPosition),
                             title = "${item.species} + ${item.weight} kg",
                             tag = item,
