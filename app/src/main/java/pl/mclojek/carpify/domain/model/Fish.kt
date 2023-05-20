@@ -5,7 +5,7 @@ import java.time.ZonedDateTime
 
 data class Fish(
     val id: String,
-    val species: String,
+    val species: FishSpecies,
     val weight: Float,
     val length: Int,
     val catchDatetime: ZonedDateTime,

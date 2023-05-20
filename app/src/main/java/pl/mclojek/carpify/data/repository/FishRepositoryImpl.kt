@@ -14,4 +14,9 @@ class FishRepositoryImpl : FishRepository {
             emit(Resource.Success(fakeFishList.filter { it.lakeId == lakeId }))
         }
     }
+
+    override suspend fun saveFish(fish: Fish): Resource<Fish> {
+        fakeFishList.add(fish)
+        return Resource.Success(fish)
+    }
 }

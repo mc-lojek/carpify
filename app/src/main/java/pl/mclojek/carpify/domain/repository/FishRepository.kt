@@ -8,4 +8,6 @@ interface FishRepository {
 
     suspend fun getFishForLake(lakeId: String): Flow<Resource<List<Fish>>>
 
+    suspend fun saveFish(fish: Fish): Resource<Fish>
+
 }

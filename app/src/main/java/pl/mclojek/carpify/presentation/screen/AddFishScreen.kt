@@ -10,16 +10,24 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import pl.mclojek.carpify.domain.model.AllSpecies
+import pl.mclojek.carpify.presentation.dialog.LocalDatePicker
+import pl.mclojek.carpify.presentation.dialog.SpeciesPicker
 import pl.mclojek.carpify.presentation.util.SuffixTransformation
+import pl.mclojek.carpify.presentation.viewmodel.AddFishViewModel
 import java.time.LocalDate
 import java.time.LocalTime
+import kotlin.random.Random
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Destination
 fun AddFishScreen(navigator: DestinationsNavigator) {
+
+    val vm: AddFishViewModel = hiltViewModel()
 
     var speciesState by remember { mutableStateOf("") }
     var weightState by remember { mutableStateOf("") }
@@ -67,13 +75,21 @@ fun AddFishScreen(navigator: DestinationsNavigator) {
                 },
                 actions = {
                     IconButton(
-                        onClick = { /*TODO*/ }) {
+                        onClick = {
+                            vm.addFish("1", Random.nextFloat())
+                            navigator.navigateUp()
+                        }) {
                         Icon(Icons.Filled.Done, null)
                     }
                 },
             )
         }, content = { padding ->
             Column(modifier = Modifier.padding(padding)) {
+                SpeciesPicker(
+                    selectedSpecies = AllSpecies.first(),
+                    onSpeciesSelected = {},
+                    speciesList = AllSpecies
+                )
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = speciesState,
@@ -93,6 +109,10 @@ fun AddFishScreen(navigator: DestinationsNavigator) {
                     onValueChange = { lengthState = it },
                     label = { Text("Length") },
                     visualTransformation = SuffixTransformation(" cm"),
+                )
+                LocalDatePicker(
+                    selectedDate = catchDateState,
+                    onDateSelected = { catchDateState = it }
                 )
                 TextField(
                     modifier = Modifier

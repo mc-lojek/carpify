@@ -172,7 +172,7 @@ fun FishMapScreen(
                                 anchor
                             ) else Offset(0.5f, 1f),
                             state = MarkerState(item.catchPosition),
-                            title = "${item.species} + ${item.weight} kg",
+                            title = "${item.species.name} + ${item.weight} kg",
                             tag = item,
                             onClick = { marker ->
                                 coroutineScope.launch {

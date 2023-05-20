@@ -48,7 +48,7 @@ fun FishDetailsScreen(navigator: DestinationsNavigator, fishId: String) {
 
 
     val appBarState = remember {
-        mutableStateOf(AppBarState(title = fish.species))
+        mutableStateOf(AppBarState(title = fish.species.name))
     }
 
     Scaffold(
@@ -114,7 +114,7 @@ fun FishDetailsScreen(navigator: DestinationsNavigator, fishId: String) {
                             .fillMaxWidth()
                             .clickable { showFullScreenImage = true },
                     )
-                    TitledInputItem(title = "Gatunek", inputText = fish.species)
+                    TitledInputItem(title = "Gatunek", inputText = fish.species.name)
                     TitledInputItem(title = "Waga", inputText = "${fish.weight.toReadable(3)} kg")
                     TitledInputItem(title = "Długość", inputText = "${fish.length} cm")
                     TitledInputItem(

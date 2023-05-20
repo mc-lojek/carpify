@@ -23,7 +23,7 @@ fun FishListItem(fish: Fish, onClick: (Fish) -> Unit) {
             .padding(8.dp)
     ) {
         Row(modifier = Modifier.fillMaxWidth()) {
-            Text("${fish.species} ${fish.weight} kg")
+            Text("${fish.species.name} ${fish.weight} kg")
             Spacer(Modifier.width(4.dp))
             Text(fish.catchDatetime.toDatetimeReadable())
         }

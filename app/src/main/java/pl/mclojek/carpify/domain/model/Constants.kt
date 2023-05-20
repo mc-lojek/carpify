@@ -14,7 +14,7 @@ val POLAND_ZOOM = 5.7f
 val fakeFishList = mutableListOf(
     Fish(
         "1",
-        "Common carp",
+        AllSpecies.random(),
         28.70f,
         99,
         ZonedDateTime.now(),
@@ -25,7 +25,7 @@ val fakeFishList = mutableListOf(
     ),
     Fish(
         "2",
-        "Mirror carp",
+        AllSpecies.random(),
         28.70f,
         99,
         ZonedDateTime.now(),
@@ -36,7 +36,7 @@ val fakeFishList = mutableListOf(
     ),
     Fish(
         "3",
-        "Grass carp",
+        AllSpecies.random(),
         28.70f,
         99,
         ZonedDateTime.now(),
@@ -47,7 +47,7 @@ val fakeFishList = mutableListOf(
     ),
     Fish(
         "4",
-        "Sturgeon",
+        AllSpecies.random(),
         42.0f,
         157,
         ZonedDateTime.now().minusDays(3),
@@ -59,7 +59,7 @@ val fakeFishList = mutableListOf(
 
     Fish(
         "1",
-        "Common carp",
+        AllSpecies.random(),
         28.70f,
         99,
         ZonedDateTime.now(),
@@ -70,7 +70,7 @@ val fakeFishList = mutableListOf(
     ),
     Fish(
         "2",
-        "Mirror carp",
+        AllSpecies.random(),
         28.70f,
         99,
         ZonedDateTime.now(),
@@ -81,7 +81,7 @@ val fakeFishList = mutableListOf(
     ),
     Fish(
         "3",
-        "Grass carp",
+        AllSpecies.random(),
         28.70f,
         99,
         ZonedDateTime.now(),
@@ -92,7 +92,7 @@ val fakeFishList = mutableListOf(
     ),
     Fish(
         "4",
-        "Sturgeon",
+        AllSpecies.random(),
         42.0f,
         157,
         ZonedDateTime.now().minusDays(3),
@@ -104,7 +104,7 @@ val fakeFishList = mutableListOf(
 
     Fish(
         "1",
-        "Common carp",
+        AllSpecies.random(),
         28.70f,
         99,
         ZonedDateTime.now(),
@@ -115,7 +115,7 @@ val fakeFishList = mutableListOf(
     ),
     Fish(
         "2",
-        "Mirror carp",
+        AllSpecies.random(),
         28.70f,
         99,
         ZonedDateTime.now(),
@@ -126,7 +126,7 @@ val fakeFishList = mutableListOf(
     ),
     Fish(
         "3",
-        "Grass carp",
+        AllSpecies.random(),
         28.70f,
         99,
         ZonedDateTime.now(),
@@ -137,7 +137,7 @@ val fakeFishList = mutableListOf(
     ),
     Fish(
         "4",
-        "Sturgeon",
+        AllSpecies.random(),
         42.0f,
         157,
         ZonedDateTime.now().minusDays(3),
@@ -149,7 +149,7 @@ val fakeFishList = mutableListOf(
 
     Fish(
         "1",
-        "Common carp",
+        AllSpecies.random(),
         28.70f,
         99,
         ZonedDateTime.now(),
@@ -160,7 +160,7 @@ val fakeFishList = mutableListOf(
     ),
     Fish(
         "2",
-        "Mirror carp",
+        AllSpecies.random(),
         28.70f,
         99,
         ZonedDateTime.now(),
@@ -171,7 +171,7 @@ val fakeFishList = mutableListOf(
     ),
     Fish(
         "3",
-        "Grass carp",
+        AllSpecies.random(),
         28.70f,
         99,
         ZonedDateTime.now(),
@@ -182,7 +182,7 @@ val fakeFishList = mutableListOf(
     ),
     Fish(
         "4",
-        "Sturgeon",
+        AllSpecies.random(),
         42.0f,
         157,
         ZonedDateTime.now().minusDays(3),
