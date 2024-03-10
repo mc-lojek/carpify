@@ -1,21 +1,22 @@
 package pl.mclojek.carpify.presentation.screen
 
-import android.widget.DatePicker
-import android.widget.TimePicker
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.android.gms.maps.model.LatLng
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import com.ramcosta.composedestinations.result.NavResult
+import com.ramcosta.composedestinations.result.ResultRecipient
 import pl.mclojek.carpify.domain.model.AllSpecies
 import pl.mclojek.carpify.presentation.dialog.LocalDatePicker
+import pl.mclojek.carpify.presentation.dialog.LocalTimePicker
 import pl.mclojek.carpify.presentation.dialog.SpeciesPicker
+import pl.mclojek.carpify.presentation.screen.destinations.CoordsSelectionScreenDestination
 import pl.mclojek.carpify.presentation.util.SuffixTransformation
 import pl.mclojek.carpify.presentation.viewmodel.AddFishViewModel
 import java.time.LocalDate
@@ -25,7 +26,10 @@ import kotlin.random.Random
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @Destination
-fun AddFishScreen(navigator: DestinationsNavigator) {
+fun AddFishScreen(
+    navigator: DestinationsNavigator,
+    resultRecipient: ResultRecipient<CoordsSelectionScreenDestination, LatLng>
+) {
 
     val vm: AddFishViewModel = hiltViewModel()
 
@@ -36,25 +40,7 @@ fun AddFishScreen(navigator: DestinationsNavigator) {
     var catchTimeState by remember { mutableStateOf(LocalTime.now()) }
     var descriptionState by remember { mutableStateOf("") }
 
-    val datePickerValue = android.app.DatePickerDialog(
-        LocalContext.current,
-        { _: DatePicker, year: Int, month: Int, day: Int ->
-            catchDateState = LocalDate.of(year, month + 1, day)
-        },
-        catchDateState.year,
-        catchDateState.monthValue - 1,
-        catchDateState.dayOfMonth
-    )
 
-    val timePickerValue = android.app.TimePickerDialog(
-        LocalContext.current,
-        { _: TimePicker, hour: Int, minute: Int ->
-            catchTimeState = LocalTime.of(hour, minute)
-        },
-        catchTimeState.hour,
-        catchTimeState.minute,
-        true
-    )
 
     Scaffold(
         modifier = Modifier,
@@ -114,34 +100,36 @@ fun AddFishScreen(navigator: DestinationsNavigator) {
                     selectedDate = catchDateState,
                     onDateSelected = { catchDateState = it }
                 )
-                TextField(
-                    modifier = Modifier
-                        .clickable { datePickerValue.show() }
-                        .fillMaxWidth(),
-                    value = catchDateState.toString(),
-                    onValueChange = {},
-                    readOnly = true,
-                    enabled = false,
-                    label = { Text("Catch date") }
-                )
-                TextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { timePickerValue.show() },
-                    value = catchTimeState.toString(),
-                    onValueChange = {},
-                    readOnly = true,
-                    enabled = false,
-                    label = { Text("Catch time") }
-                )
+                LocalTimePicker(
+                    selectedTime = catchTimeState,
+                    onTimeSelected = { catchTimeState = it })
                 TextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = descriptionState,
                     onValueChange = { descriptionState = it },
                     label = { Text("Description") }
                 )
+                Button(onClick = {navigator.navigate(CoordsSelectionScreenDestination)}) {
+                    Text("Coords")
+                }
             }
         })
+
+    resultRecipient.onNavResult { result ->
+        when (result) {
+            is NavResult.Canceled -> {
+                // `GoToProfileConfirmationDestination` was shown but it was canceled
+                // and no value was set (example: dialog/bottom sheet dismissed)
+            }
+
+            is NavResult.Value -> {
+                println("result received from GoToProfileConfirmationDestination = ${result.value}")
+                // Do whatever with the result received!
+                // Think of it like a button click, usually you want to call
+                // a view model method here or navigate somewhere
+            }
+        }
+    }
 }
 
 fun processFloat(input: String): String {
